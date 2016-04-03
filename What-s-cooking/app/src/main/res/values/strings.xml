@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">Whats cooking</string>
-    <string name="version">alpha</string>
-    <string name="option1">Ingredients</string>
-    <string name="option2">Recipe</string>
-    <string name="option3">Favorites</string>
-    <string name="option1_description">choose ingredients and we help you to cook something</string>
-    <string name="option2_description">all of our recipes</string>
-    <string name="option3_description">you favorite dishes</string>
+    <string name="version">(alpha)</string>
+    <string name="option1">Ингредиенты</string>
+    <string name="option2">Рецепты</string>
+    <string name="option3">Избранное</string>
+    <string name="option1_description">Выбери ингредиенты и мы поможем выбрать блюдо</string>
+    <string name="option2_description">Все блюда</string>
+    <string name="option3_description">Твои любимые блюда</string>
+    <string name="getBack">Назад</string>
+    <string name="complete">Выполнено</string>
+    <string name="add_ingredient">Добавьте первый ингредиент</string>
 </resources>

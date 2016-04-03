@@ -3,9 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="mainBackground">#f4f4f4</color>
+    <color name="mainBackground">#fafafa</color>
     <color name="colorTitle">#FFFFFF</color>
     <color name="colorText">#404040</color>
     <color name="colorDescription">#aeaeae</color>
     <color name="colorAppIcon">#dd3333</color>
+    <color name="delete">#e24747</color>
 </resources>

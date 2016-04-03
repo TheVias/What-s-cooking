@@ -5,4 +5,5 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
-    app:titleMarginStart="25dp" />
+    app:titleMarginStart="10dp"
+    />
