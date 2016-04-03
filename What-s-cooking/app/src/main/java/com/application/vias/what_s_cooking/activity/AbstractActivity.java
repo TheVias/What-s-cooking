@@ -1,17 +1,18 @@
 package com.application.vias.what_s_cooking.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.widget.ListView;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toolbar;
 
-import com.application.vias.what_s_cooking.Option;
 import com.application.vias.what_s_cooking.R;
 
 import java.util.ArrayList;
 
-abstract class AbstractActivity extends Activity {
+abstract class AbstractActivity extends AppCompatActivity {
 
     protected Toolbar toolbar;
 
@@ -20,7 +21,7 @@ abstract class AbstractActivity extends Activity {
         super.onCreate(savedInstanceState);
     }
 
-    abstract void initToolbar();
+    //abstract void initToolbar();
 
     protected void goToNewActivity(Class gotoActivity) {
         Intent intent = new Intent(this,gotoActivity);

@@ -9,5 +9,6 @@
     <string name="option3_description">Твои любимые блюда</string>
     <string name="getBack">Назад</string>
     <string name="complete">Выполнено</string>
+    <string name="settings">Настройки</string>
     <string name="add_ingredient">Добавьте первый ингредиент</string>
 </resources>
