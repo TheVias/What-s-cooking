@@ -3,7 +3,7 @@ package com.application.vias.what_s_cooking;
 import android.util.EventLogTags;
 
 /**
- * Created by andrey on 02.04.2016.
+ * Класс-опций главного меню
  */
 public class Option {
 

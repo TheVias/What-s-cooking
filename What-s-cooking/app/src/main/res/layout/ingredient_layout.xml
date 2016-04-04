@@ -23,7 +23,8 @@
         android:background="@drawable/delete"
         android:layout_row="0"
         android:layout_rowSpan="2"
-        android:layout_column="2" />
+        android:layout_column="2"
+        android:focusable="false"/>
 
     <TextView
         android:layout_width="wrap_content"

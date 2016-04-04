@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="info.androidhive.fab.LinkActivity"
+    tools:context="info.androidhive.fab.MainActivity"
     tools:showIn="@layout/activity_link"
     android:background="@color/mainBackground">
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listIngredients"/>
+        android:id="@+id/listMenu"/>
 
 </RelativeLayout>

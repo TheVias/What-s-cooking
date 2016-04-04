@@ -20,22 +20,26 @@ import com.application.vias.what_s_cooking.adapter.IngredientAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Активити со списком ингредиентов, из которых следует приготовить блюдо. Можно добавлять ингредиенты,
+ * удалять их или отправиться к выбору блюда по существующему списку ингредиентов.
+ */
 public class LinkActivity extends AbstractActivity {
 
-    private ListView listView;
+    private ListView listIngredientView;
     private List<Ingredient> listIngredient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_link);
+        //setTheme(R.style.AppDefault);
+        //устанавливаем заголовок тулбара
         setTitle(R.string.option1);
+        setContentView(R.layout.activity_link);
 
         initIgredientsList();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listIngredientView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //listIngredient.remove(position);
-                //refreshIngredientsList();
                 Toast.makeText(getApplicationContext(), listIngredient.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -43,13 +47,14 @@ public class LinkActivity extends AbstractActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listIngredient.add(new Ingredient(listIngredient.size() + 1, "Морковка", "Овощи"));
+                listIngredient.add(new Ingredient(listIngredient.size() + 1, "Морковка", 5));
                 refreshIngredientsList();
             }
         });
 
     }
 
+    //Методы вызывается при инициализации пунктов меню. Меню представляет собой R.menu.menu_link_activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_link_activity, menu);
@@ -61,11 +66,12 @@ public class LinkActivity extends AbstractActivity {
         return true;
     }
 
+    //Метод вызывается при клике на элемент меню, по айдишнику элемента определяем куда кликнули и обрабатываем соответственно
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_complete:
-                Toast.makeText(getApplicationContext(), "Complete!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Набор составлен!", Toast.LENGTH_SHORT).show();
                 //listIngredient.add(new Ingredient(listIngredient.size() + 1, "Морковка", "Овощи"));
                 //refreshIngredientsList();
                 return true;
@@ -74,16 +80,22 @@ public class LinkActivity extends AbstractActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Метод инициализирует список ингридиентов
+     */
     private void initIgredientsList() {
-        listView = (ListView) findViewById(R.id.listIngredients);
+        listIngredientView = (ListView) findViewById(R.id.listIngredients);
         listIngredient = new ArrayList<Ingredient>();
         IngredientAdapter adapter = new IngredientAdapter(this,listIngredient);
-        listView.setAdapter(adapter);
+        listIngredientView.setAdapter(adapter);
     }
 
+    /**
+     * Метод обновляет адаптер списка ингридиентов
+     */
     public void refreshIngredientsList() {
         IngredientAdapter adapter = new IngredientAdapter(this,listIngredient);
-        listView.setAdapter(adapter);
+        listIngredientView.setAdapter(adapter);
     }
 
 }

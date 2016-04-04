@@ -16,6 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.LinkActivity"/>
+        <activity android:name=".activity.LauncherActivity"/>
     </application>
 
 </manifest>

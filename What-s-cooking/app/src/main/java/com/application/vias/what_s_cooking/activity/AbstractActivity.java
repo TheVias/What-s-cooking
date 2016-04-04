@@ -12,17 +12,21 @@ import com.application.vias.what_s_cooking.R;
 
 import java.util.ArrayList;
 
+/**
+ * Базовый класс для всех классов с тулбаром (наследуемся от AppCompatActivity, потому что там
+ * встроенный бар и его не нужно явно прописывать в xml файле)
+ */
 abstract class AbstractActivity extends AppCompatActivity {
-
-    protected Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    //abstract void initToolbar();
-
+    /**
+     * Метод, который запускает новое активити
+     * @param gotoActivity класс активити, на которое следует перейти
+     */
     protected void goToNewActivity(Class gotoActivity) {
         Intent intent = new Intent(this,gotoActivity);
         startActivity(intent);

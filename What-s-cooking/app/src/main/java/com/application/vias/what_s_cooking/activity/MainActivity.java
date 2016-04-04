@@ -30,8 +30,9 @@ public class MainActivity extends AbstractActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setTheme(R.style.AppDefault);
         setTitle(R.string.app_name);
+        setContentView(R.layout.activity_main);
 
         initOptionsList();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -78,7 +79,8 @@ public class MainActivity extends AbstractActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_settings:
-                Toast.makeText(getApplicationContext(), "Settings", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Настройки", Toast.LENGTH_SHORT).show();
+                goToNewActivity(LauncherActivity.class);
                 return true;
         }
         return super.onOptionsItemSelected(item);
