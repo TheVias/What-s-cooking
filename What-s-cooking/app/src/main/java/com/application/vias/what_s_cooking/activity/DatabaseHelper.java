@@ -15,6 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns{
 
     //созданице таблицы Instruction
     //
+    //
     //названия столбцов
     public static final String DISCRIPTION_COLUMN = "discription";
     public static final String TIMER_COLUMN = "timer";
