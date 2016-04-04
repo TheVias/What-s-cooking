@@ -2,6 +2,7 @@ package com.application.vias.what_s_cooking.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -26,9 +27,17 @@ public class MainActivity extends AbstractActivity {
 
     private ListView listView;
     //protected android.widget.Toolbar toolbar;
+    private DatabaseHelper mDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        mDatabaseHelper = new DatabaseHelper(this, "database.db", null, 1);
+        SQLiteDatabase sdb;
+        sdb = mDatabaseHelper.getReadableDatabase();
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle(R.string.app_name);
@@ -83,5 +92,7 @@ public class MainActivity extends AbstractActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }
