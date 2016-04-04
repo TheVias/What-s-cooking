@@ -27,6 +27,7 @@ public class MainActivity extends AbstractActivity {
 
     private ListView listView;
     //protected android.widget.Toolbar toolbar;
+    //
     private DatabaseHelper mDatabaseHelper;
 
     @Override
