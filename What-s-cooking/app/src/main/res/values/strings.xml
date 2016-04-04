@@ -8,7 +8,7 @@
     <string name="option1_description">Выбери ингредиенты и мы поможем выбрать блюдо</string>
     <string name="option2_description">Все блюда</string>
     <string name="option3_description">Твои любимые блюда</string>
-    <string name="getBack">Назад</string>
+    <string name="get_back">Назад</string>
     <string name="complete">Выполнено</string>
     <string name="settings">Настройки</string>
     <string name="add_ingredient">Добавьте первый ингредиент</string>

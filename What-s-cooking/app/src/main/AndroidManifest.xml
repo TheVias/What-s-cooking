@@ -17,6 +17,7 @@
         </activity>
         <activity android:name=".activity.LinkActivity"/>
         <activity android:name=".activity.LauncherActivity"/>
+        <activity android:name=".activity.AllCategoriesActivity"/>
     </application>
 
 </manifest>

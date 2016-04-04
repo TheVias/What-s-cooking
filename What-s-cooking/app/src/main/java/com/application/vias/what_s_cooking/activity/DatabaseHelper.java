@@ -59,7 +59,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns{
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DATABASE_CREATE_SCRIPT1);
         db.execSQL(DATABASE_CREATE_SCRIPT2);
-        db.execSQL("INSERT 1 INTO TABLE");
 
     }
 

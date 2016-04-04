@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="info.androidhive.fab.MainActivity">
+    tools:context="info.androidhive.fab.AllCategoriesActivity">
 
-    <include layout="@layout/content_activity_main" />
+    <include layout="@layout/content_activity_all_categories" />
 
 </android.support.design.widget.CoordinatorLayout>

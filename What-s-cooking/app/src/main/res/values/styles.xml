@@ -1,21 +1,21 @@
 <resources>
 
-    <style name="AppTheme" parent="AppTheme.Base"/>
+    <style name="AppTheme" parent="AppBlue"/>
 
-    <style name="AppTheme.Base" parent="Theme.AppCompat">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowActionBar">false</item>
-    </style>
-    <!--
-    <style name="AppTheme" parent="Theme.AppCompat"/>
-    <style name="AppDefault" parent="AppTheme">
+    <style name="AppBlue" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/white</item>
-        <item name="android:windowActionBar">false</item>
+        <item name="titleTextColor">@color/white</item>
     </style>
-    -->
+
+    <style name="AppGreen" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">#0a7100</item>
+        <item name="colorPrimaryDark">#053800</item>
+        <item name="colorAccent">#edda00</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="titleTextColor">@color/white</item>
+    </style>
+
 </resources>

@@ -47,8 +47,8 @@ public class LinkActivity extends AbstractActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listIngredient.add(new Ingredient(listIngredient.size() + 1, "Морковка", 5));
-                refreshIngredientsList();
+                ((FloatingActionButton) findViewById(R.id.fab)).hide();
+                goToNewActivity(AllCategoriesActivity.class);
             }
         });
 

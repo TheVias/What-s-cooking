@@ -21,27 +21,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by andrey on 02.04.2016.
+ * Класс активити главного меню с выбором действий
  */
 public class MainActivity extends AbstractActivity {
 
     private ListView listView;
     //protected android.widget.Toolbar toolbar;
-    //
-    //
     private DatabaseHelper mDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        //инициализация базы
         mDatabaseHelper = new DatabaseHelper(this, "database.db", null, 1);
         SQLiteDatabase sdb;
         sdb = mDatabaseHelper.getReadableDatabase();
 
-
-
         super.onCreate(savedInstanceState);
-        //setTheme(R.style.AppDefault);
         setTitle(R.string.app_name);
         setContentView(R.layout.activity_main);
 
@@ -64,6 +60,9 @@ public class MainActivity extends AbstractActivity {
 
     }
 
+    /**
+     * Инициализация списка элементов главного меню
+     */
     private void initOptionsList() {
         listView = (ListView) findViewById(R.id.listMenu);
         List<Option> list = new ArrayList<Option>();

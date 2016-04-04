@@ -11,8 +11,11 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:src="@drawable/plus"
-        fab:backgroundTint="@color/colorAccent"
-        android:tint="@color/white"
-        fab:rippleColor="@color/white"/>
+        />
+    <!--
+    fab:backgroundTint="@color/colorAccent"
+    android:tint="@color/white"
+    fab:rippleColor="@color/white"
+    -->
 
 </FrameLayout>

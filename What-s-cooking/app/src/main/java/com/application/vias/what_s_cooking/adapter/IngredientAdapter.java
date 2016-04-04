@@ -78,6 +78,7 @@ public class IngredientAdapter extends BaseAdapter {
                 ((LinkActivity)context).refreshIngredientsList();
             }
         });
+
         return view;
     }
 
