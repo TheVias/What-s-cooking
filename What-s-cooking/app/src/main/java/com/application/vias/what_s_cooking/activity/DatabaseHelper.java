@@ -262,7 +262,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
         db.execSQL(DATABASE_INSERT_DISH_INSTR_SCRIPT1);
         db.execSQL(DATABASE_INSERT_DISH_INSTR_SCRIPT2);
         db.execSQL(DATABASE_INSERT_DISH_INSTR_SCRIPT3);
-
+//
         db.execSQL(DATABASE_INSERT_DISH_TAG_SCRIPT1);
         db.execSQL(DATABASE_INSERT_DISH_TAG_SCRIPT2);
         db.execSQL(DATABASE_INSERT_DISH_TAG_SCRIPT3);
