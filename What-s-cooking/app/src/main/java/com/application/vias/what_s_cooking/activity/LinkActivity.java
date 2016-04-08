@@ -1,11 +1,7 @@
 package com.application.vias.what_s_cooking.activity;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.application.vias.what_s_cooking.ApplicationState;
 import com.application.vias.what_s_cooking.Ingredient;
 import com.application.vias.what_s_cooking.R;
 import com.application.vias.what_s_cooking.adapter.IngredientAdapter;
@@ -37,10 +34,10 @@ public class LinkActivity extends AbstractActivity {
         setTitle(R.string.option1);
         setContentView(R.layout.activity_link);
 
-        initIgredientsList();
+        initIngredientsList();
         listIngredientView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), listIngredient.get(position).getName(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), listIngredient.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
         });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -52,6 +49,20 @@ public class LinkActivity extends AbstractActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        initIngredientsList();
+        ((FloatingActionButton) findViewById(R.id.fab)).show();
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        ApplicationState state = ApplicationState.getInstance();
+        state.setIngredientList(listIngredient);
+        super.onDestroy();
     }
 
     //Методы вызывается при инициализации пунктов меню. Меню представляет собой R.menu.menu_link_activity
@@ -83,9 +94,14 @@ public class LinkActivity extends AbstractActivity {
     /**
      * Метод инициализирует список ингридиентов
      */
-    private void initIgredientsList() {
+    private void initIngredientsList() {
+        ApplicationState state = ApplicationState.getInstance();
         listIngredientView = (ListView) findViewById(R.id.listIngredients);
-        listIngredient = new ArrayList<Ingredient>();
+        if (state.getIngredientList().isEmpty()) {
+            listIngredient = new ArrayList<Ingredient>();
+        } else {
+            listIngredient = state.getIngredientList();
+        }
         IngredientAdapter adapter = new IngredientAdapter(this,listIngredient);
         listIngredientView.setAdapter(adapter);
     }

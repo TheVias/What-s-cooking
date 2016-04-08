@@ -1,10 +1,9 @@
 package com.application.vias.what_s_cooking.activity;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.AsyncPlayer;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.application.vias.what_s_cooking.ApplicationState;
 import com.application.vias.what_s_cooking.Ingredient;
 import com.application.vias.what_s_cooking.Option;
 import com.application.vias.what_s_cooking.R;
@@ -31,12 +31,6 @@ public class MainActivity extends AbstractActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //инициализация базы
-        mDatabaseHelper = new DatabaseHelper(this, "database.db", null, 1);
-        SQLiteDatabase sdb;
-        sdb = mDatabaseHelper.getReadableDatabase();
-
         super.onCreate(savedInstanceState);
         setTitle(R.string.app_name);
         setContentView(R.layout.activity_main);
@@ -69,6 +63,7 @@ public class MainActivity extends AbstractActivity {
         list.add(new Option(1,getString(R.string.option1),getString(R.string.option1_description)));
         list.add(new Option(2,getString(R.string.option2),getString(R.string.option2_description)));
         list.add(new Option(3, getString(R.string.option3), getString(R.string.option3_description)));
+
         OptionAdapter adapter = new OptionAdapter(this,list);
         listView.setAdapter(adapter);
     }

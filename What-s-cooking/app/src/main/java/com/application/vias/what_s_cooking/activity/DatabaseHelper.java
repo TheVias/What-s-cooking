@@ -1,10 +1,18 @@
 package com.application.vias.what_s_cooking.activity;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
+
+import com.application.vias.what_s_cooking.Category;
+import com.application.vias.what_s_cooking.Ingredient;
+import com.application.vias.what_s_cooking.enums.DBColumn;
+
+import java.util.ArrayList;
+import java.util.List;
 /**
  * Класс для создания локальной БД. Тут создаются все таблицы и связи.
  */
@@ -14,6 +22,8 @@ import android.util.Log;
  * Created by wesked on 04.04.16.
  */
 public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
+
+    private Context context;
 
     //имя базы данных
     private static final String DATABASE_NAME = "database.db";
@@ -204,12 +214,17 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
             + "(dish, tag) "
             + "VALUES (2,5);";
 
-    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DatabaseHelper (Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
-    //тут из MainActivity посылается сигнал на создании БД
-    //и выполняется скрипт
+    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
+        this.context = context;
+    }
+
+    //Создание таблиц и стандартные инсерты
     @Override
     public void onCreate(SQLiteDatabase db) {
         //создание таблиц
@@ -277,5 +292,74 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
         db.execSQL("DROP TABLE IF IT EXISTS ");
         // Создаём новую таблицу
         onCreate(db);
+    }
+
+    public Ingredient getIngredientById(int i) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(DBColumn.INGREDIENT.getName(), DBColumn.INGREDIENT.getColumns(),
+                null, null,
+                null, null, null);
+        int id;
+        String name;
+        int cat;
+        if (cursor.moveToFirst()) {
+
+            id = cursor.getInt(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(0)));
+            name = cursor.getString(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(1)));
+            cat = cursor.getInt(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(2)));
+
+        } else {
+            return null;
+        }
+        cursor.close();
+        db.close();
+        return new Ingredient(id,name,cat);
+    }
+
+    public List<Category> getAllCategories() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(DBColumn.CATEGORY.getName(), DBColumn.CATEGORY.getColumns(),
+                null, null,
+                null, null, null);
+        int id;
+        String name;
+        List<Category> list = new ArrayList<Category>();
+        if (cursor.moveToFirst()) {
+
+            do {
+                id = cursor.getInt(cursor.getColumnIndex(DBColumn.CATEGORY.getColumn(0)));
+                name = cursor.getString(cursor.getColumnIndex(DBColumn.CATEGORY.getColumn(1)));
+                list.add(new Category(id, name));
+            } while (cursor.moveToNext());
+        } else {
+            return null;
+        }
+        cursor.close();
+        db.close();
+        return list;
+    }
+
+    public List<Ingredient> getIngredientsByCategory(Category category) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(DBColumn.INGREDIENT.getName(), DBColumn.INGREDIENT.getColumns(),
+                "category = ?", new String[]{String.valueOf(category.get_id())},
+                null, null, null) ;
+        int id;
+        String name;
+        int cat;
+        List<Ingredient> list = new ArrayList<Ingredient>();
+        if (cursor.moveToFirst()) {
+            do {
+                id = cursor.getInt(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(0)));
+                name = cursor.getString(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(1)));
+                cat = cursor.getInt(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(2)));
+                list.add(new Ingredient(id, name, cat));
+            } while (cursor.moveToNext());
+        } else {
+            return null;
+        }
+        cursor.close();
+        db.close();
+        return list;
     }
 }

@@ -71,7 +71,7 @@ public class IngredientAdapter extends BaseAdapter {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "УДАЛИТЬ", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "УДАЛИТЬ", Toast.LENGTH_SHORT).show();
                 //Удаляем элемент в списке
                 list.remove(position);
                 //Обновляем вью всего активити (не думаю, что это оптимальное решение)

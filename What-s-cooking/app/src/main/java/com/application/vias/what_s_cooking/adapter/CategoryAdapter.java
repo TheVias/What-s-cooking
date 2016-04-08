@@ -61,8 +61,10 @@ public class CategoryAdapter extends BaseAdapter {
 
         TextView categoryName = (TextView) view.findViewById(R.id.category_name);
         categoryName.setText(category.getName());
+        /*
         ImageView categoryImage = (ImageView) view.findViewById(R.id.category_image);
         categoryImage.setColorFilter(new LightingColorFilter(0xff4081, 0xff4081));
+        */
 
         return view;
     }
