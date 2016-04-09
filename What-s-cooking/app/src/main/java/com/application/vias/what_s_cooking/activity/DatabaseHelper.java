@@ -297,7 +297,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
     public Ingredient getIngredientById(int i) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(DBColumn.INGREDIENT.getName(), DBColumn.INGREDIENT.getColumns(),
-                null, null,
+                "_id = ?", new String[]{String.valueOf(i)},
                 null, null, null);
         int id;
         String name;
@@ -314,6 +314,26 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns {
         cursor.close();
         db.close();
         return new Ingredient(id,name,cat);
+    }
+
+    public Category getCategoryById(int i) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(DBColumn.CATEGORY.getName(), DBColumn.CATEGORY.getColumns(),
+                "_id = ?", new String[]{String.valueOf(i)},
+                null, null, null);
+        int id;
+        String name;
+        if (cursor.moveToFirst()) {
+
+            id = cursor.getInt(cursor.getColumnIndex(DBColumn.CATEGORY.getColumn(0)));
+            name = cursor.getString(cursor.getColumnIndex(DBColumn.CATEGORY.getColumn(1)));
+
+        } else {
+            return null;
+        }
+        cursor.close();
+        db.close();
+        return new Category(id,name);
     }
 
     public List<Category> getAllCategories() {

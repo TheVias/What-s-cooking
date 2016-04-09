@@ -2,6 +2,8 @@ package com.application.vias.what_s_cooking.activity;
 
 import android.media.AsyncPlayer;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,11 +34,10 @@ public class AllCategoriesActivity extends AbstractActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Выбери категорию");
+        setTitle(R.string.all_categories_activity_title);
         setContentView(R.layout.activity_all_categories);
 
         initListCategories();
-
 
         listCategoriesAndIngredientsView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -47,9 +48,17 @@ public class AllCategoriesActivity extends AbstractActivity{
                     //ignore
                 } else {
                     state.getIngredientList().add(ingredient);
-                    Toast.makeText(getApplicationContext(),"Added!",Toast.LENGTH_SHORT).show();
+                    Snackbar.make(v, ingredient.getName()+" добавлен", Snackbar.LENGTH_SHORT).show();
                 }
                 return true;
+            }
+        });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_confirm_categories);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToNewActivity(LinkActivity.class);
             }
         });
     }

@@ -10,8 +10,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.application.vias.what_s_cooking.ApplicationState;
 import com.application.vias.what_s_cooking.Ingredient;
 import com.application.vias.what_s_cooking.R;
+import com.application.vias.what_s_cooking.activity.DatabaseHelper;
 import com.application.vias.what_s_cooking.activity.LinkActivity;
 
 import org.w3c.dom.Text;
@@ -60,11 +62,15 @@ public class IngredientAdapter extends BaseAdapter {
         //получаем ингредиент
         Ingredient ingredient = getIngredient(position);
 
+        ApplicationState state = ApplicationState.getInstance();
+        DatabaseHelper helper = state.getHelper();
+
         //Заполняем поля layout-а
         TextView ingredientName = (TextView) view.findViewById(R.id.ingredient_name);
         ingredientName.setText(ingredient.getName());
         TextView ingredientDescription = (TextView) view.findViewById(R.id.ingredient_description);
-        ingredientDescription.setText(String.valueOf(ingredient.getCategory()));
+        ingredientDescription.setText(helper.getCategoryById(ingredient.getCategory()).getName());
+        //ingredientDescription.setText("ааааа");
         Button button = (Button) view.findViewById(R.id.button);
 
         //Вешаем на кнопку удаления ингредиента листнер и в случае нажатия удаляем элемент из списка и обновляем View всего активити

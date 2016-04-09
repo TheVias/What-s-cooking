@@ -2,6 +2,7 @@ package com.application.vias.what_s_cooking.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +32,7 @@ public class LinkActivity extends AbstractActivity {
         super.onCreate(savedInstanceState);
         //setTheme(R.style.AppDefault);
         //устанавливаем заголовок тулбара
-        setTitle(R.string.option1);
+        setTitle(R.string.link_activity_title);
         setContentView(R.layout.activity_link);
 
         initIngredientsList();
@@ -40,12 +41,20 @@ public class LinkActivity extends AbstractActivity {
                 //Toast.makeText(getApplicationContext(), listIngredient.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
         });
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((FloatingActionButton) findViewById(R.id.fab)).hide();
                 goToNewActivity(AllCategoriesActivity.class);
+            }
+        });
+
+        FloatingActionButton fab_confirm = (FloatingActionButton) findViewById(R.id.fab_confirm);
+        fab_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Набор составлен!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -54,7 +63,6 @@ public class LinkActivity extends AbstractActivity {
     @Override
     protected void onResume() {
         initIngredientsList();
-        ((FloatingActionButton) findViewById(R.id.fab)).show();
         super.onResume();
     }
 
@@ -80,6 +88,7 @@ public class LinkActivity extends AbstractActivity {
     //Метод вызывается при клике на элемент меню, по айдишнику элемента определяем куда кликнули и обрабатываем соответственно
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        /*
         switch (item.getItemId()) {
             case R.id.item_complete:
                 Toast.makeText(getApplicationContext(), "Набор составлен!", Toast.LENGTH_SHORT).show();
@@ -87,6 +96,7 @@ public class LinkActivity extends AbstractActivity {
                 //refreshIngredientsList();
                 return true;
         }
+        */
 
         return super.onOptionsItemSelected(item);
     }

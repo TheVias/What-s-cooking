@@ -9,7 +9,9 @@
     <string name="option2_description">Все блюда</string>
     <string name="option3_description">Твои любимые блюда</string>
     <string name="get_back">Назад</string>
-    <string name="complete">Выполнено</string>
+    <string name="complete">Готово</string>
     <string name="settings">Настройки</string>
     <string name="add_ingredient">Добавьте первый ингредиент</string>
+    <string name="link_activity_title">Список ингредиентов</string>
+    <string name="all_categories_activity_title">Выбери ингредиенты</string>
 </resources>

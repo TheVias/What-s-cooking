@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="AppBlue"/>
 
@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlNormal">@color/black</item>
         <item name="titleTextColor">@color/white</item>
     </style>
 
@@ -16,6 +16,20 @@
         <item name="colorAccent">#edda00</item>
         <item name="colorControlNormal">@color/white</item>
         <item name="titleTextColor">@color/white</item>
+    </style>
+
+    <style name="MyRaisedButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="android:textColor">@color/mainBackground</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="MyFlatButton" parent="AppTheme">
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
 </resources>

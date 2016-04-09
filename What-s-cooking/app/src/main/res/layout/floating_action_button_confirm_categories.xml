@@ -5,17 +5,12 @@
     android:layout_height="match_parent" >
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_confirm_categories"
         android:layout_width="54dp"
         android:layout_height="54dp"
-        android:layout_gravity="bottom|left"
+        android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
-        android:src="@drawable/plus"
+        android:src="@drawable/complete"
         />
-    <!--
-    fab:backgroundTint="@color/colorAccent"
-    android:tint="@color/white"
-    fab:rippleColor="@color/white"
-    -->
 
 </FrameLayout>
