@@ -6,8 +6,24 @@
     android:fitsSystemWindows="true"
     tools:context="info.androidhive.fab.AllCategoriesActivity">
 
+    <ExpandableListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listCategories"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_confirm_categories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/complete"
+        />
+
+    <!--
     <include layout="@layout/content_activity_all_categories" />
 
     <include layout="@layout/floating_action_button_confirm_categories" />
+    -->
 
 </android.support.design.widget.CoordinatorLayout>

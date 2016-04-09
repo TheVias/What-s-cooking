@@ -1,5 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="info.androidhive.fab.LinkActivity">
+
+    <!--
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listIngredients"
+        android:overScrollMode="ifContentScrolls"
+        android:visibility="invisible"/>
+    -->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="16dp"
+        android:src="@drawable/plus"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/complete"
+        />
+
+</android.support.design.widget.CoordinatorLayout>
+<!--
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,8 +52,9 @@
 
     <include layout="@layout/content_activity_link" />
 
-    <include layout="@layout/floating_action_button" />
+    <include layout="@layout/floating_action_button"/>
 
-    <include layout="@layout/floating_action_button_confirm" />
+    <include layout="@layout/floating_action_button_confirm"/>
 
 </android.support.design.widget.CoordinatorLayout>
+-->

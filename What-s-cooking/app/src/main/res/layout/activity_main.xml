@@ -6,6 +6,9 @@
     android:fitsSystemWindows="true"
     tools:context="info.androidhive.fab.MainActivity">
 
-    <include layout="@layout/content_activity_main" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listMenu"/>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -70,20 +70,6 @@ public class IngredientAdapter extends BaseAdapter {
         ingredientName.setText(ingredient.getName());
         TextView ingredientDescription = (TextView) view.findViewById(R.id.ingredient_description);
         ingredientDescription.setText(helper.getCategoryById(ingredient.getCategory()).getName());
-        //ingredientDescription.setText("ааааа");
-        Button button = (Button) view.findViewById(R.id.button);
-
-        //Вешаем на кнопку удаления ингредиента листнер и в случае нажатия удаляем элемент из списка и обновляем View всего активити
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(context, "УДАЛИТЬ", Toast.LENGTH_SHORT).show();
-                //Удаляем элемент в списке
-                list.remove(position);
-                //Обновляем вью всего активити (не думаю, что это оптимальное решение)
-                ((LinkActivity)context).refreshIngredientsList();
-            }
-        });
 
         return view;
     }
