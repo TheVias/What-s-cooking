@@ -5,18 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.application.vias.what_s_cooking.ApplicationState;
-import com.application.vias.what_s_cooking.Ingredient;
+import com.application.vias.what_s_cooking.entity.Ingredient;
 import com.application.vias.what_s_cooking.R;
-import com.application.vias.what_s_cooking.activity.DatabaseHelper;
-import com.application.vias.what_s_cooking.activity.LinkActivity;
-
-import org.w3c.dom.Text;
+import com.application.vias.what_s_cooking.DatabaseHelper;
 
 import java.util.List;
 

@@ -1,9 +1,14 @@
-package com.application.vias.what_s_cooking;
+package com.application.vias.what_s_cooking.entity;
+
+import com.application.vias.what_s_cooking.entity.CookingImage;
+import com.application.vias.what_s_cooking.entity.CookingTimer;
+
+import java.io.Serializable;
 
 /**
  * Created by Svetlana on 09.04.2016.
  */
-public class Instruction {
+public class Instruction implements Serializable{
 
     private String description;
     private CookingTimer timer;

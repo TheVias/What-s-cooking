@@ -1,9 +1,11 @@
-package com.application.vias.what_s_cooking;
+package com.application.vias.what_s_cooking.entity;
+
+import java.io.Serializable;
 
 /**
  * Класс-ингредиент. Содержит все необходимые поля ингредиента, сеттеры и геттеры.
  */
-public class Ingredient {
+public class Ingredient implements Serializable{
     private int _id;
     private int category;
     private String name;
@@ -24,6 +26,18 @@ public class Ingredient {
 
     public int getCategory() {
         return category;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

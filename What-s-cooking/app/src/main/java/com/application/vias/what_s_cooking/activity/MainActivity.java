@@ -1,8 +1,5 @@
 package com.application.vias.what_s_cooking.activity;
 
-import android.app.Application;
-import android.database.sqlite.SQLiteDatabase;
-import android.media.AsyncPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,8 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.application.vias.what_s_cooking.ApplicationState;
-import com.application.vias.what_s_cooking.Ingredient;
+import com.application.vias.what_s_cooking.DatabaseHelper;
 import com.application.vias.what_s_cooking.Option;
 import com.application.vias.what_s_cooking.R;
 import com.application.vias.what_s_cooking.adapter.OptionAdapter;
@@ -84,7 +80,7 @@ public class MainActivity extends AbstractActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_settings:
-                Toast.makeText(getApplicationContext(), "Настройки", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Настройки", Toast.LENGTH_SHORT).show();
                 goToNewActivity(LauncherActivity.class);
                 return true;
         }

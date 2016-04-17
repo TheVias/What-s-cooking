@@ -6,9 +6,12 @@ package com.application.vias.what_s_cooking.enums;
 public enum DBColumn {
     INGREDIENT("ingredient",new String[] {"_id","name","category"}),
     CATEGORY("foodcategory",new String[] {"_id","name"}),
-    TAG("tag", new String[] {"_id","name"}),
+    DISH("dish", new String[] {"_id", "name", "r_simple", "r_origin", "r_cashtime", "date_create"}),
     INSTRUCTION("instruction", new String[] {"_id","description", "timer", "image"}),
-    DISH("dish", new String[] {"_id", "name", "r_simple", "r_origin", "r_cashtime", "date_create"});
+    TAG("tag", new String[] {"_id","name"}),
+    DISH_INGR("dish_ingr",new String[] {"_id","dish","ingredient"}),
+    DISH_INSTR("dish_instr",new String[] {"_id","dish","instruction"}),
+    DISH_TAG("dish_tag",new String[] {"_id","dish","tag"});
 
     private String[] array;
     private String name;

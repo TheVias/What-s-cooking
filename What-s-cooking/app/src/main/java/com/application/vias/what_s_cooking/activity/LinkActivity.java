@@ -1,30 +1,20 @@
 package com.application.vias.what_s_cooking.activity;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.Display;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.application.vias.what_s_cooking.ApplicationState;
-import com.application.vias.what_s_cooking.Ingredient;
+import com.application.vias.what_s_cooking.entity.Ingredient;
 import com.application.vias.what_s_cooking.R;
-import com.application.vias.what_s_cooking.adapter.IngredientAdapter;
 import com.application.vias.what_s_cooking.adapter.IngredientAdapterRV;
 
 import java.util.ArrayList;
@@ -84,26 +74,26 @@ public class LinkActivity extends AbstractActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_link_activity, menu);
-        /*
-        MenuItem locationItem = menu.add(0, R.id.menu_location, 0, R.string.menu_location);
-        locationItem.setIcon(R.drawable.ic_action_location);
-        MenuItemCompat.setShowAsAction(locationItem, MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        */
         return true;
     }
 
     //Метод вызывается при клике на элемент меню, по айдишнику элемента определяем куда кликнули и обрабатываем соответственно
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /*
         switch (item.getItemId()) {
+            /*
             case R.id.item_complete:
                 Toast.makeText(getApplicationContext(), "Набор составлен!", Toast.LENGTH_SHORT).show();
                 //listIngredient.add(new Ingredient(listIngredient.size() + 1, "Морковка", "Овощи"));
                 //refreshIngredientsList();
                 return true;
+            */
+            case R.id.item_back: {
+                //goToNewActivity(MainActivity.class);
+                finish();
+                break;
+            }
         }
-        */
 
         return super.onOptionsItemSelected(item);
     }
@@ -140,9 +130,9 @@ public class LinkActivity extends AbstractActivity {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 //Remove swiped item from list and notify the RecyclerView
+                Snackbar.make(viewHolder.itemView,listIngredient.get(viewHolder.getAdapterPosition()).getName()+" был удален",Snackbar.LENGTH_SHORT).show();
                 listIngredient.remove(viewHolder.getAdapterPosition());
                 adapterRV.notifyItemRemoved((int)viewHolder.getAdapterPosition());
-
             }
 
 

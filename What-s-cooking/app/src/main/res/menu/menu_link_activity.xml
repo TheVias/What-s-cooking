@@ -9,4 +9,11 @@
         app:showAsAction="ifRoom"
         />
     -->
+
+    <item android:id = "@+id/item_back"
+        android:title="@string/get_back"
+        android:icon="@drawable/get_back"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
+        />
 </menu>

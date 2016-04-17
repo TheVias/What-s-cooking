@@ -1,20 +1,14 @@
 package com.application.vias.what_s_cooking.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.LightingColorFilter;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.application.vias.what_s_cooking.Category;
+import com.application.vias.what_s_cooking.entity.Category;
 import com.application.vias.what_s_cooking.R;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 

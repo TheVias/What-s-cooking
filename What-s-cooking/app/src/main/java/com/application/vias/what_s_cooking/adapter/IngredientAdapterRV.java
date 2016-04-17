@@ -1,16 +1,16 @@
 package com.application.vias.what_s_cooking.adapter;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
 import android.widget.TextView;
 
 import com.application.vias.what_s_cooking.ApplicationState;
-import com.application.vias.what_s_cooking.Ingredient;
+import com.application.vias.what_s_cooking.entity.Ingredient;
 import com.application.vias.what_s_cooking.R;
-import com.application.vias.what_s_cooking.activity.DatabaseHelper;
+import com.application.vias.what_s_cooking.DatabaseHelper;
 
 import java.util.List;
 
@@ -48,11 +48,18 @@ public class IngredientAdapterRV extends RecyclerView.Adapter<IngredientAdapterR
     }
 
     @Override
-    public void onBindViewHolder(IngredientViewHolder holder, int position) {
-        Ingredient ingredient = ingredients.get(position);
+    public void onBindViewHolder(final IngredientViewHolder holder, int position) {
+        final Ingredient ingredient = ingredients.get(position);
         holder.ingredientName.setText(ingredient.getName());
         ApplicationState state = ApplicationState.getInstance();
         DatabaseHelper helper = state.getHelper();
         holder.ingredientCategory.setText(helper.getCategoryById(ingredient.getCategory()).getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //ignore
+                Snackbar.make(v, holder.ingredientName.getText(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.application.vias.what_s_cooking.Category;
-import com.application.vias.what_s_cooking.Ingredient;
+import com.application.vias.what_s_cooking.entity.Category;
+import com.application.vias.what_s_cooking.entity.Ingredient;
 import com.application.vias.what_s_cooking.R;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**

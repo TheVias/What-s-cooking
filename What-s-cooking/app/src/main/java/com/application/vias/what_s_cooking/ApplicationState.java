@@ -2,7 +2,7 @@ package com.application.vias.what_s_cooking;
 
 import android.app.Application;
 
-import com.application.vias.what_s_cooking.activity.DatabaseHelper;
+import com.application.vias.what_s_cooking.entity.Ingredient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +12,28 @@ import java.util.List;
  * и объектов сессии.
  */
 public class ApplicationState extends Application {
-    private String name;
-    private DatabaseHelper helper;
-    private List<Ingredient> ingredientList;
-    private static ApplicationState singleton;
+    volatile private String name;
+    volatile private DatabaseHelper helper;
+    volatile private List<Ingredient> ingredientList;
+    volatile private static ApplicationState singleton;
+    volatile private String serverIp;
+    volatile private int serverPort;
+
+    public String getServerIp() {
+        return serverIp;
+    }
+
+    public void setServerIp(String serverIp) {
+        this.serverIp = serverIp;
+    }
+
+    public int getServerPort() {
+        return serverPort;
+    }
+
+    public void setServerPort(int serverPort) {
+        this.serverPort = serverPort;
+    }
 
     @Override
     public void onCreate() {
@@ -24,6 +42,8 @@ public class ApplicationState extends Application {
         singleton.setHelper(new DatabaseHelper(this));
         singleton.setIngredientList(new ArrayList<Ingredient>());
         singleton.setName("Пользователь");
+        singleton.setServerIp("37.139.43.119");
+        singleton.setServerPort(6666);
     }
 
     /**

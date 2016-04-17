@@ -1,9 +1,11 @@
-package com.application.vias.what_s_cooking;
+package com.application.vias.what_s_cooking.entity;
+
+import java.io.Serializable;
 
 /**
  * Created by andrey on 04.04.2016.
  */
-public class Category {
+public class Category implements Serializable{
 
     private int _id;
     private String name;

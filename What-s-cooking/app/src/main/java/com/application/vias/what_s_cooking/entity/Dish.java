@@ -1,12 +1,13 @@
-package com.application.vias.what_s_cooking;
+package com.application.vias.what_s_cooking.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
 
 /**
  * Created by Svetlana on 09.04.2016.
  */
-public class Dish {
+public class Dish implements Serializable {
 
     private int _id;
     private String name;

@@ -1,25 +1,20 @@
 package com.application.vias.what_s_cooking.activity;
 
-import android.media.AsyncPlayer;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Pair;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.application.vias.what_s_cooking.ApplicationState;
-import com.application.vias.what_s_cooking.Category;
-import com.application.vias.what_s_cooking.Ingredient;
+import com.application.vias.what_s_cooking.DatabaseHelper;
+import com.application.vias.what_s_cooking.entity.Category;
+import com.application.vias.what_s_cooking.entity.Ingredient;
 import com.application.vias.what_s_cooking.R;
-import com.application.vias.what_s_cooking.adapter.CategoryAdapter;
 import com.application.vias.what_s_cooking.adapter.IngredientsInCategoriesAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
