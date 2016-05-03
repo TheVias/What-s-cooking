@@ -17,6 +17,8 @@ public class Dish implements Serializable {
     private LinkedList <Instruction> instructions;
     private LinkedList <Tag> tags;
 
+    public Dish() {}
+
     public Dish(int _id, String name, Date date_create, double r_simple, double r_origin, double r_cashtime, LinkedList<Ingredient> ingredients, LinkedList<Instruction> instructions, LinkedList<Tag> tags) {
         this._id = _id;
         this.name = name;

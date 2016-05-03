@@ -14,4 +14,8 @@
     <string name="add_ingredient">Добавьте первый ингредиент</string>
     <string name="link_activity_title">Список ингредиентов</string>
     <string name="all_categories_activity_title">Выбери ингредиенты</string>
+    <string name="title_activity_cooking">CookingActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="step">шаг</string>
 </resources>

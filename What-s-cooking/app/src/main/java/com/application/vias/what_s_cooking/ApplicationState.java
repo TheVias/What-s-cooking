@@ -2,6 +2,7 @@ package com.application.vias.what_s_cooking;
 
 import android.app.Application;
 
+import com.application.vias.what_s_cooking.entity.Dish;
 import com.application.vias.what_s_cooking.entity.Ingredient;
 
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ public class ApplicationState extends Application {
     volatile private String name;
     volatile private DatabaseHelper helper;
     volatile private List<Ingredient> ingredientList;
+    volatile private Dish dish;
+    volatile private int instructionNumber;
     volatile private static ApplicationState singleton;
     volatile private String serverIp;
     volatile private int serverPort;
@@ -41,6 +44,8 @@ public class ApplicationState extends Application {
         singleton = this;
         singleton.setHelper(new DatabaseHelper(this));
         singleton.setIngredientList(new ArrayList<Ingredient>());
+        singleton.setDish(null);
+        singleton.setInstructionNumber(-1);
         singleton.setName("Пользователь");
         singleton.setServerIp("37.139.43.119");
         singleton.setServerPort(6666);
@@ -76,5 +81,21 @@ public class ApplicationState extends Application {
 
     public void setIngredientList(List<Ingredient> ingredientList) {
         this.ingredientList = ingredientList;
+    }
+
+    public Dish getDish() {
+        return dish;
+    }
+
+    public void setDish(Dish dish) {
+        this.dish = dish;
+    }
+
+    public int getInstructionNumber() {
+        return instructionNumber;
+    }
+
+    public void setInstructionNumber(int instructionNumber) {
+        this.instructionNumber = instructionNumber;
     }
 }

@@ -61,7 +61,7 @@ public class SocketManager {
             objectOutputStream.writeObject("updateDB");
             objectOutputStream.writeObject(snapshot);
             update = (DBSnapshot)objectInputStream.readObject();
-            state.setName(String.valueOf(update.getIngredient().length));
+            //state.setName(String.valueOf(update.getIngredient().size())+" "+String.valueOf(update.getCategory().size()));
             handler.sendEmptyMessage(4);
             //...скачиваем нужное количество нужных файлов (обрабатываем каждый массив в snapshot-е)
             //...сервер пока не готов еще ничего читать

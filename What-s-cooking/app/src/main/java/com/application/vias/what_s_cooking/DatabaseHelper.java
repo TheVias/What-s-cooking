@@ -8,11 +8,15 @@ import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.application.vias.what_s_cooking.entity.Category;
+import com.application.vias.what_s_cooking.entity.Dish;
 import com.application.vias.what_s_cooking.entity.Ingredient;
+import com.application.vias.what_s_cooking.entity.Instruction;
 import com.application.vias.what_s_cooking.enums.DBColumn;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 /**
  * Класс для создания локальной БД. Тут создаются все таблицы и связи.
  */
@@ -127,6 +131,29 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
         return new Ingredient(id,name,cat);
     }
 
+    public Instruction getInstructionById(int i) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(DBColumn.INSTRUCTION.getName(), DBColumn.INSTRUCTION.getColumns(),
+                "_id = ?", new String[]{String.valueOf(i)},
+                null, null, null);
+        int id;
+        String desc;
+        int timer;
+        if (cursor.moveToFirst()) {
+            id = cursor.getInt(cursor.getColumnIndex(DBColumn.INSTRUCTION.getColumn(0)));
+            desc = cursor.getString(cursor.getColumnIndex(DBColumn.INSTRUCTION.getColumn(1)));
+            timer = cursor.getInt(cursor.getColumnIndex(DBColumn.INSTRUCTION.getColumn(2)));
+        } else {
+            return null;
+        }
+        cursor.close();
+        db.close();
+        Instruction instruction = new Instruction();
+        instruction.set_id(id);
+        instruction.setDescription(desc);
+        return instruction;
+    }
+
     public Category getCategoryById(int i) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(DBColumn.CATEGORY.getName(), DBColumn.CATEGORY.getColumns(),
@@ -170,6 +197,30 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
         return list;
     }
 
+    public List<Ingredient> getAllIngredients() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(DBColumn.INGREDIENT.getName(), DBColumn.INGREDIENT.getColumns(),
+                null, null,
+                null, null, null);
+        int id,cat;
+        String name;
+        List<Ingredient> list = new ArrayList<Ingredient>();
+        if (cursor.moveToFirst()) {
+
+            do {
+                id = cursor.getInt(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(0)));
+                name = cursor.getString(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(1)));
+                cat = cursor.getInt(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(2)));
+                list.add(new Ingredient(id, name, cat));
+            } while (cursor.moveToNext());
+        } else {
+            return null;
+        }
+        cursor.close();
+        db.close();
+        return list;
+    }
+
     public List<Ingredient> getIngredientsByCategory(Category category) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(DBColumn.INGREDIENT.getName(), DBColumn.INGREDIENT.getColumns(),
@@ -194,102 +245,159 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
         return list;
     }
 
+    public List<Instruction> getInstructionsByDish(Dish dish) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(DBColumn.DISH_INSTR.getName(), DBColumn.DISH_INSTR.getColumns(),
+                "dish = ?", new String[]{String.valueOf(dish.get_id())},
+                null, null, null) ;
+        int id;
+        int dish_id;
+        int instr_id;
+        List<Instruction> list = new ArrayList<Instruction>();
+        if (cursor.moveToFirst()) {
+            do {
+                dish_id = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH_INSTR.getColumn(1)));
+                instr_id = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH_INSTR.getColumn(2)));
+                Instruction instruction = getInstructionById(instr_id);
+                list.add(instruction);
+            } while (cursor.moveToNext());
+        } else {
+            return null;
+        }
+        cursor.close();
+        db.close();
+        return list;
+    }
+
+    public List<Dish> getDishesByIngredients(List<Ingredient> ingredients){
+        SQLiteDatabase db = getReadableDatabase();
+        /*
+        Cursor cursor = db.query(DBColumn.INGREDIENT.getName(), DBColumn.INGREDIENT.getColumns(),
+                "category = ?", new String[]{String.valueOf(category.get_id())},
+                null, null, null) ;
+        */
+        List<Dish> list = new ArrayList<Dish>();
+        if (!ingredients.isEmpty()) {
+            String[] ids = new String[ingredients.size()];
+            String query = "select * from dish where _id in (?";
+            int i = 0;
+            for (Ingredient ingredient : ingredients) {
+                ids[i] = String.valueOf(ingredient.get_id());
+                if (i!=0) {
+                    query = query.concat(", ?");
+                }
+                i++;
+            }
+            Cursor cursor = db.rawQuery(query+")", ids);
+            int id;
+            String name;
+            if (cursor.moveToFirst()) {
+                do {
+                    id = cursor.getInt(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(0)));
+                    name = cursor.getString(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(1)));
+                    Dish dish = new Dish();
+                    dish.set_id(id);
+                    dish.setName(name);
+                    list.add(dish);
+                } while (cursor.moveToNext());
+            } else {
+                return null;
+            }
+            cursor.close();
+            db.close();
+        }
+        return list;
+    }
+
     public DBSnapshot getDBSnapshot () {
         DBSnapshot snapshot = new DBSnapshot();
         SQLiteDatabase db = getReadableDatabase();
-        int id,size;
-        int[] mas;
+        Set<Integer> set;
+        int id;
 
         //скан ингредиентов
         Cursor cursor = db.query(DBColumn.INGREDIENT.getName(), DBColumn.INGREDIENT.getColumns(),
                 null, null,
                 null, null, null) ;
-        size = cursor.getCount();
-        mas = new int[size];
         cursor.moveToFirst();
+        set = new HashSet<Integer>();
         do {
             id = cursor.getInt(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(0)));
-            mas[cursor.getPosition()]=id;
+            set.add(Integer.valueOf(id));
         } while (cursor.moveToNext());
-        snapshot.setIngredient(mas);
+        snapshot.setIngredient(set);
 
         //скан категорий
         cursor = db.query(DBColumn.CATEGORY.getName(), DBColumn.CATEGORY.getColumns(),
                 null, null,
                 null, null, null) ;
-        size = cursor.getCount();
-        mas = new int[size];
+        set = new HashSet<Integer>();
         cursor.moveToFirst();
         do {
             id = cursor.getInt(cursor.getColumnIndex(DBColumn.CATEGORY.getColumn(0)));
-            mas[cursor.getPosition()]=id;
+            set.add(Integer.valueOf(id));
         } while (cursor.moveToNext());
-        snapshot.setCategory(mas);
+        snapshot.setCategory(set);
 
         //скан блюд
         cursor = db.query(DBColumn.DISH.getName(), DBColumn.DISH.getColumns(),
                 null, null,
                 null, null, null) ;
-        size = cursor.getCount();
-        mas = new int[size];
+        set = new HashSet<Integer>();
         cursor.moveToFirst();
         do {
             id = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH.getColumn(0)));
-            mas[cursor.getPosition()]=id;
+            set.add(Integer.valueOf(id));
         } while (cursor.moveToNext());
-        snapshot.setDish(mas);
+        snapshot.setDish(set);
 
         //скан инструкций
         cursor = db.query(DBColumn.INSTRUCTION.getName(), DBColumn.INSTRUCTION.getColumns(),
                 null, null,
                 null, null, null) ;
-        size = cursor.getCount();
-        mas = new int[size];
+        set = new HashSet<Integer>();
         cursor.moveToFirst();
         do {
             id = cursor.getInt(cursor.getColumnIndex(DBColumn.INSTRUCTION.getColumn(0)));
-            mas[cursor.getPosition()]=id;
+            set.add(Integer.valueOf(id));
         } while (cursor.moveToNext());
-        snapshot.setInstruction(mas);
+        snapshot.setInstruction(set);
 
         //скан связки1
         cursor = db.query(DBColumn.DISH_INGR.getName(), DBColumn.DISH_INGR.getColumns(),
                 null, null,
                 null, null, null) ;
-        size = cursor.getCount();
-        mas = new int[size];
+        set = new HashSet<Integer>();
         cursor.moveToFirst();
         do {
             id = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH_INGR.getColumn(0)));
-            mas[cursor.getPosition()]=id;
+            set.add(Integer.valueOf(id));
         } while (cursor.moveToNext());
-        snapshot.setDish_ingr(mas);
+        snapshot.setDish_ingr(set);
 
         //скан связки2
         cursor = db.query(DBColumn.DISH_INSTR.getName(), DBColumn.DISH_INSTR.getColumns(),
                 null, null,
                 null, null, null) ;
-        size = cursor.getCount();
-        mas = new int[size];
+        set = new HashSet<Integer>();
         cursor.moveToFirst();
         do {
             id = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH_INSTR.getColumn(0)));
-            mas[cursor.getPosition()]=id;
+            set.add(Integer.valueOf(id));
         } while (cursor.moveToNext());
-        snapshot.setDish_instr(mas);
+        snapshot.setDish_instr(set);
 
         //скан связки3
         cursor = db.query(DBColumn.DISH_TAG.getName(), DBColumn.DISH_TAG.getColumns(),
                 null, null,
                 null, null, null) ;
-        size = cursor.getCount();
-        mas = new int[size];
+        set = new HashSet<Integer>();
         cursor.moveToFirst();
         do {
             id = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH_TAG.getColumn(0)));
-            mas[cursor.getPosition()]=id;
+            set.add(Integer.valueOf(id));
         } while (cursor.moveToNext());
-        snapshot.setDish_tag(mas);
+        snapshot.setDish_tag(set);
 
         cursor.close();
         db.close();

@@ -10,16 +10,28 @@ import java.io.Serializable;
  */
 public class Instruction implements Serializable{
 
+    private int _id;
     private String description;
     private CookingTimer timer;
     private CookingImage image;
     private boolean wasLooked;
+
+    public Instruction(){
+    }
 
     public Instruction(String description, CookingTimer timer, CookingImage image){
         this.description = description;
         this.timer = timer;
         this.image = image;
         wasLooked = false;
+    }
+
+    public int get_id() {
+        return _id;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
     }
 
     public String getDescription() {

@@ -7,10 +7,12 @@ import android.support.design.widget.Snackbar;
 import android.widget.Toast;
 
 import com.application.vias.what_s_cooking.ApplicationState;
+import com.application.vias.what_s_cooking.entity.Dish;
 import com.application.vias.what_s_cooking.entity.Ingredient;
 import com.application.vias.what_s_cooking.R;
 import com.application.vias.what_s_cooking.SocketManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +27,16 @@ public class LauncherActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
+        List<Ingredient> list = new ArrayList<>();
+        list.addAll(ApplicationState.getInstance().getHelper().getAllIngredients());
+        List<Dish> dishList = ApplicationState.getInstance().getHelper().getDishesByIngredients(list);
+
+        for (Dish dish: dishList) {
+            Toast.makeText(this,dish.getName(),Toast.LENGTH_LONG).show();
+        }
+
+        /*
+        //ниже идет общение с сервером и обновление базы
         handler = new Handler() {
             public void handleMessage(android.os.Message msg) {
                 switch (msg.what) {
@@ -59,10 +71,9 @@ public class LauncherActivity extends Activity {
             public void run() {
                 SocketManager manager = new SocketManager(getApplicationContext(),handler);
                 manager.updateDB();
-                //List<Ingredient> inComeList = manager.getNewIngredients();
             }
         });
         thread.start();
-
+        */
     }
 }
