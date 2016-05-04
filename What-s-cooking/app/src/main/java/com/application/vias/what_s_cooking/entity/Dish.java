@@ -12,17 +12,19 @@ public class Dish implements Serializable {
     private int _id;
     private String name;
     private Date date_create;
-    private double r_simple, r_origin, r_cashtime;
+    private int vote_count;
+    private int r_simple, r_origin, r_cashtime;
     private LinkedList <Ingredient> ingredients;
     private LinkedList <Instruction> instructions;
     private LinkedList <Tag> tags;
 
     public Dish() {}
 
-    public Dish(int _id, String name, Date date_create, double r_simple, double r_origin, double r_cashtime, LinkedList<Ingredient> ingredients, LinkedList<Instruction> instructions, LinkedList<Tag> tags) {
+    public Dish(int _id, String name, Date date_create, int vote_count,int r_simple, int r_origin, int r_cashtime, LinkedList<Ingredient> ingredients, LinkedList<Instruction> instructions, LinkedList<Tag> tags) {
         this._id = _id;
         this.name = name;
         this.date_create = date_create;
+        this.vote_count = vote_count;
         this.r_simple = r_simple;
         this.r_origin = r_origin;
         this.r_cashtime = r_cashtime;
@@ -55,27 +57,35 @@ public class Dish implements Serializable {
         this.date_create = date_create;
     }
 
-    public double getR_simple() {
+    public int getVote_count() {
+        return vote_count;
+    }
+
+    public void setVote_count(int vote_count) {
+        this.vote_count = vote_count;
+    }
+
+    public int getR_simple() {
         return r_simple;
     }
 
-    public void setR_simple(double r_simple) {
+    public void setR_simple(int r_simple) {
         this.r_simple = r_simple;
     }
 
-    public double getR_origin() {
+    public int getR_origin() {
         return r_origin;
     }
 
-    public void setR_origin(double r_origin) {
+    public void setR_origin(int r_origin) {
         this.r_origin = r_origin;
     }
 
-    public double getR_cashtime() {
+    public int getR_cashtime() {
         return r_cashtime;
     }
 
-    public void setR_cashtime(double r_cashtime) {
+    public void setR_cashtime(int r_cashtime) {
         this.r_cashtime = r_cashtime;
     }
 
@@ -101,5 +111,17 @@ public class Dish implements Serializable {
 
     public void setTags(LinkedList<Tag> tags) {
         this.tags = tags;
+    }
+
+    public int getRate_simple(){
+        return r_simple/vote_count;
+    }
+
+    public int getRate_origin(){
+        return r_origin/vote_count;
+    }
+
+    public int getRate_cashtime(){
+        return r_cashtime/vote_count;
     }
 }

@@ -12,7 +12,7 @@ import com.application.vias.what_s_cooking.R;
 import com.application.vias.what_s_cooking.entity.Instruction;
 
 /**
- * Класс инструкции-фрагмента. Отвечает за отрисовку этапы готовки
+ * Класс инструкции-фрагмента. Отвечает за отрисовку этапа готовки
  */
 public class InstructionFragment extends Fragment {
     private Instruction instruction;

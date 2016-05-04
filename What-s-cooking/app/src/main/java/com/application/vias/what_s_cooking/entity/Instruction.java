@@ -15,15 +15,17 @@ public class Instruction implements Serializable{
     private CookingTimer timer;
     private CookingImage image;
     private boolean wasLooked;
+    private int instruction_num;
 
     public Instruction(){
     }
 
-    public Instruction(String description, CookingTimer timer, CookingImage image){
+    public Instruction(String description, CookingTimer timer, CookingImage image, int instruction_num){
         this.description = description;
         this.timer = timer;
         this.image = image;
         wasLooked = false;
+        this.instruction_num = instruction_num;
     }
 
     public int get_id() {
@@ -65,4 +67,13 @@ public class Instruction implements Serializable{
     public void setWasLooked(boolean wasLooked) {
         this.wasLooked = wasLooked;
     }
+
+    public int getInstruction_num() {
+        return instruction_num;
+    }
+
+    public void setInstruction_num(int instruction_num) {
+        this.instruction_num = instruction_num;
+    }
+
 }
