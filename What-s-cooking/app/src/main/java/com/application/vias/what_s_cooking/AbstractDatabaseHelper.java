@@ -44,9 +44,12 @@ public class AbstractDatabaseHelper extends SQLiteOpenHelper {
     protected static final String DATABASE_CREATE_SCRIPT5 = "CREATE TABLE DISH( "
             + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
             + "name TEXT NOT NULL, "
-            + "r_simple REAL, "
-            + "r_origin REAL, "
-            + "r_cashtime REAL, "
+            + "vote_simple_count INTEGER,"
+            + "vote_origin_count INTEGER,"
+            + "vote_cashtime_count INTEGER,"
+            + "r_simple INTEGER, "
+            + "r_origin INTEGER, "
+            + "r_cashtime INTEGER, "
             + "date_create TEXT);";
 
     //Созадние таблицы Dish_INGR #6
@@ -61,6 +64,7 @@ public class AbstractDatabaseHelper extends SQLiteOpenHelper {
     protected static final String DATABASE_CREATE_SCRIPT7 = "CREATE TABLE DISH_INSTR( "
             + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
             + "dish INTEGER, "
+            + "instruction_num INTEGER,"
             + "instruction INTEGER, "
             + "FOREIGN KEY (dish) REFERENCES DISH(_id), "
             + "FOREIGN KEY (instruction) REFERENCES INSTRUCTION(_id));";
@@ -158,11 +162,11 @@ public class AbstractDatabaseHelper extends SQLiteOpenHelper {
 
     //Добавление информации в таблицу DISH
     protected static final String DATABASE_INSERT_DISH_SCRIPT1 = "INSERT INTO DISH "
-            + "(name, r_simple, r_origin,r_cashtime,date_create) "
-            + "VALUES ('Жаркое',5,3,4.5, ' ');";
+            + "(name, vote_simple_count, vote_origin_count, vote_cashtime_count, r_simple, r_origin,r_cashtime,date_create) "
+            + "VALUES ('Жаркое',1,1,1,5,3,4, ' ');";
     protected static final String DATABASE_INSERT_DISH_SCRIPT2 = "INSERT INTO DISH "
-            + "(name, r_simple, r_origin,r_cashtime,date_create) "
-            + "VALUES ('Рыба со сливочным соусом',3,5,2, ' ');";
+            + "(name, vote_simple_count, vote_origin_count, vote_cashtime_count, r_simple, r_origin,r_cashtime,date_create) "
+            + "VALUES ('Рыба со сливочным соусом',1,1,1,3,5,2, ' ');";
 
     //Добавление информации в таблицу DISH_INGR
     protected static final String DATABASE_INSERT_DISH_INGR_SCRIPT1 = "INSERT INTO DISH_INGR "
@@ -183,14 +187,14 @@ public class AbstractDatabaseHelper extends SQLiteOpenHelper {
 
     //Добавление информации в таблицу DISH_INSTR
     protected static final String DATABASE_INSERT_DISH_INSTR_SCRIPT1 = "INSERT INTO DISH_INSTR "
-            + "(dish, instruction) "
-            + "VALUES (1,2);";
+            + "(dish, instruction, instruction_num) "
+            + "VALUES (1,2,1);";
     protected static final String DATABASE_INSERT_DISH_INSTR_SCRIPT2 = "INSERT INTO DISH_INSTR "
-            + "(dish, instruction) "
-            + "VALUES (1,4);";
+            + "(dish, instruction, instruction_num) "
+            + "VALUES (1,4,2);";
     protected static final String DATABASE_INSERT_DISH_INSTR_SCRIPT3 = "INSERT INTO DISH_INSTR "
-            + "(dish, instruction) "
-            + "VALUES (1,1);";
+            + "(dish, instruction, instruction_num) "
+            + "VALUES (1,1,3);";
 
     //Добавление информации в таблицу DISH_TAG
     protected static final String DATABASE_INSERT_DISH_TAG_SCRIPT1 = "INSERT INTO DISH_TAG "

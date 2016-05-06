@@ -12,7 +12,7 @@ public class Dish implements Serializable {
     private int _id;
     private String name;
     private Date date_create;
-    private int vote_count;
+    private int vote_simple_count,vote_origin_count,vote_cashtime_count;
     private int r_simple, r_origin, r_cashtime;
     private LinkedList <Ingredient> ingredients;
     private LinkedList <Instruction> instructions;
@@ -20,11 +20,13 @@ public class Dish implements Serializable {
 
     public Dish() {}
 
-    public Dish(int _id, String name, Date date_create, int vote_count,int r_simple, int r_origin, int r_cashtime, LinkedList<Ingredient> ingredients, LinkedList<Instruction> instructions, LinkedList<Tag> tags) {
+    public Dish(int _id, String name, Date date_create, int vote_simple_count, int vote_origin_count, int vote_cashtime_count, int r_simple, int r_origin, int r_cashtime, LinkedList<Ingredient> ingredients, LinkedList<Instruction> instructions, LinkedList<Tag> tags) {
         this._id = _id;
         this.name = name;
         this.date_create = date_create;
-        this.vote_count = vote_count;
+        this.vote_simple_count = vote_simple_count;
+        this.vote_origin_count = vote_origin_count;
+        this.vote_cashtime_count = vote_cashtime_count;
         this.r_simple = r_simple;
         this.r_origin = r_origin;
         this.r_cashtime = r_cashtime;
@@ -57,12 +59,28 @@ public class Dish implements Serializable {
         this.date_create = date_create;
     }
 
-    public int getVote_count() {
-        return vote_count;
+    public int getVote_simple_count() {
+        return vote_simple_count;
     }
 
-    public void setVote_count(int vote_count) {
-        this.vote_count = vote_count;
+    public void setVote_simple_count(int vote_simple_count) {
+        this.vote_simple_count = vote_simple_count;
+    }
+
+    public int getVote_origin_count() {
+        return vote_origin_count;
+    }
+
+    public void setVote_origin_count(int vote_origin_count) {
+        this.vote_origin_count = vote_origin_count;
+    }
+
+    public int getVote_cashtime_count() {
+        return vote_cashtime_count;
+    }
+
+    public void setVote_cashtime_count(int vote_cashtime_count) {
+        this.vote_cashtime_count = vote_cashtime_count;
     }
 
     public int getR_simple() {
@@ -114,14 +132,14 @@ public class Dish implements Serializable {
     }
 
     public int getRate_simple(){
-        return r_simple/vote_count;
+        return r_simple/vote_simple_count;
     }
 
     public int getRate_origin(){
-        return r_origin/vote_count;
+        return r_origin/vote_origin_count;
     }
 
     public int getRate_cashtime(){
-        return r_cashtime/vote_count;
+        return r_cashtime/vote_cashtime_count;
     }
 }
