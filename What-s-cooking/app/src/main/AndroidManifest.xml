@@ -21,6 +21,7 @@
         <activity android:name=".activity.LauncherActivity" />
         <activity android:name=".activity.AllCategoriesActivity" />
         <activity android:name=".activity.CookingActivity" />
+        <activity android:name=".activity.RatingActivity" />
     </application>
 
 </manifest>

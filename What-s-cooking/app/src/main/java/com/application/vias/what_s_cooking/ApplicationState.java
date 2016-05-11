@@ -21,6 +21,7 @@ public class ApplicationState extends Application {
     volatile private static ApplicationState singleton;
     volatile private String serverIp;
     volatile private int serverPort;
+    volatile private int cookingTime;
 
     public String getServerIp() {
         return serverIp;
@@ -49,6 +50,7 @@ public class ApplicationState extends Application {
         singleton.setName("Пользователь");
         singleton.setServerIp("37.139.43.119");
         singleton.setServerPort(6666);
+        singleton.setCookingTime(-1);
     }
 
     /**
@@ -97,5 +99,13 @@ public class ApplicationState extends Application {
 
     public void setInstructionNumber(int instructionNumber) {
         this.instructionNumber = instructionNumber;
+    }
+
+    public int getCookingTime() {
+        return cookingTime;
+    }
+
+    public void setCookingTime(int cookingTime) {
+        this.cookingTime = cookingTime;
     }
 }

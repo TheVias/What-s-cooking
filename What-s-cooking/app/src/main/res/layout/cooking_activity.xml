@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginBottom="-8dp"
+        android:layout_marginTop="-4dp"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -22,11 +31,5 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_media_ff" />
     -->
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
 
 </android.support.design.widget.CoordinatorLayout>

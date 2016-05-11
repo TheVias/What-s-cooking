@@ -188,13 +188,13 @@ public class AbstractDatabaseHelper extends SQLiteOpenHelper {
     //Добавление информации в таблицу DISH_INSTR
     protected static final String DATABASE_INSERT_DISH_INSTR_SCRIPT1 = "INSERT INTO DISH_INSTR "
             + "(dish, instruction, instruction_num) "
-            + "VALUES (1,2,1);";
+            + "VALUES (1,2,0);";
     protected static final String DATABASE_INSERT_DISH_INSTR_SCRIPT2 = "INSERT INTO DISH_INSTR "
             + "(dish, instruction, instruction_num) "
-            + "VALUES (1,4,2);";
+            + "VALUES (1,4,1);";
     protected static final String DATABASE_INSERT_DISH_INSTR_SCRIPT3 = "INSERT INTO DISH_INSTR "
             + "(dish, instruction, instruction_num) "
-            + "VALUES (1,1,3);";
+            + "VALUES (1,1,2);";
 
     //Добавление информации в таблицу DISH_TAG
     protected static final String DATABASE_INSERT_DISH_TAG_SCRIPT1 = "INSERT INTO DISH_TAG "

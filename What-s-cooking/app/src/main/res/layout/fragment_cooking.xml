@@ -28,4 +28,14 @@
         android:layout_alignRight="@+id/instruction_number"
         android:layout_alignEnd="@+id/instruction_number" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/complete"
+        android:id="@+id/instruction_complete"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="instructionComplete"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"/>
+
 </RelativeLayout>

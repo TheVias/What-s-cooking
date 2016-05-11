@@ -24,7 +24,7 @@ public class InstructionPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         InstructionFragment fragment = new InstructionFragment();
         fragment.setInstruction(instructionList.get(position));
-        fragment.setInstructionNumber(position);
+        fragment.setInstructionNumber(instructionList.get(position).getInstruction_num() - 1);
         return fragment;
     }
 
@@ -40,5 +40,11 @@ public class InstructionPagerAdapter extends FragmentPagerAdapter {
 
     public void setInstructionList(List<Instruction> instructionList) {
         this.instructionList = instructionList;
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        // Этот метод требуется для обновления фрагментов (используется в методе notifyDataSetChanged адаптера)
+        return POSITION_NONE;
     }
 }

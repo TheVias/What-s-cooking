@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -90,10 +91,12 @@ public class CookingActivity extends AbstractActivity {
 
             @Override
             public void onPageSelected(int position) {
+                /*
                 currentInstructionNumber = position;
                 ApplicationState.getInstance().setInstructionNumber(currentInstructionNumber);
                 progressBar.setProgress(currentInstructionNumber*100 / listInstructions.size());
                 Toast.makeText(getApplicationContext(),String.valueOf(listInstructions.size()),Toast.LENGTH_SHORT);
+                */
             }
 
             @Override
@@ -134,6 +137,27 @@ public class CookingActivity extends AbstractActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void instructionComplete(View view) {
+        ApplicationState state = ApplicationState.getInstance();
+        if (mViewPager.getCurrentItem() == state.getInstructionNumber()) {
+            currentInstructionNumber = mViewPager.getCurrentItem() + 1;
+            state.setInstructionNumber(currentInstructionNumber);
+            progressBar.setProgress(currentInstructionNumber*100 / listInstructions.size());
+            Button instructionCompleteBtn;
+            view.setEnabled(false);
+            if (currentInstructionNumber == listInstructions.size()) {
+                progressBar.setProgress(100);
+                Toast.makeText(getApplicationContext(),"БЛЮДО ГОТОВО",Toast.LENGTH_SHORT).show();
+                goToNewActivity(RatingActivity.class);
+            } else {
+                instructionCompleteBtn = (Button) mViewPager.getChildAt(currentInstructionNumber).findViewById(R.id.instruction_complete);
+                instructionCompleteBtn.setEnabled(true);
+            }
+            instructionsPagerAdapter.notifyDataSetChanged();
+            mViewPager.setCurrentItem(currentInstructionNumber,true);
+        }
     }
 
 }

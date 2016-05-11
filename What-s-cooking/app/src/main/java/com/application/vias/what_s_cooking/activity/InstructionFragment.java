@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.application.vias.what_s_cooking.ApplicationState;
@@ -29,6 +30,10 @@ public class InstructionFragment extends Fragment {
         numberView.setText(getString(R.string.step)+" "+String.valueOf(instructionNumber));
         TextView descriptionView = (TextView) rootView.findViewById(R.id.instruction_description);
         descriptionView.setText(instruction.getDescription());
+        if (instructionNumber != ApplicationState.getInstance().getInstructionNumber()) {
+            Button buttonComplete = (Button) rootView.findViewById(R.id.instruction_complete);
+            buttonComplete.setEnabled(false);
+        }
         return rootView;
     }
 

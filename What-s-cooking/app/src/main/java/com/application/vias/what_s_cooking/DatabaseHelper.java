@@ -253,12 +253,15 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
         int id;
         int dish_id;
         int instr_id;
+        int instr_num;
         List<Instruction> list = new ArrayList<Instruction>();
         if (cursor.moveToFirst()) {
             do {
                 dish_id = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH_INSTR.getColumn(1)));
                 instr_id = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH_INSTR.getColumn(2)));
+                instr_num = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH_INSTR.getColumn(3)));
                 Instruction instruction = getInstructionById(instr_id);
+                instruction.setInstruction_num(instr_num);
                 list.add(instruction);
             } while (cursor.moveToNext());
         } else {
