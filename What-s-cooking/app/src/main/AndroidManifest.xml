@@ -20,7 +20,8 @@
         <activity android:name=".activity.LinkActivity" />
         <activity android:name=".activity.LauncherActivity" />
         <activity android:name=".activity.AllCategoriesActivity" />
-        <activity android:name=".activity.CookingActivity" />
+        <activity android:name=".activity.CookingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name=".activity.RatingActivity" />
     </application>
 

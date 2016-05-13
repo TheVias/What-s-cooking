@@ -12,12 +12,15 @@ import com.application.vias.what_s_cooking.ApplicationState;
 import com.application.vias.what_s_cooking.R;
 import com.application.vias.what_s_cooking.entity.Instruction;
 
+import java.util.List;
+
 /**
  * Класс инструкции-фрагмента. Отвечает за отрисовку этапа готовки
  */
 public class InstructionFragment extends Fragment {
     private Instruction instruction;
     private int instructionNumber;
+    private List<Instruction> instructionList;
 
     public InstructionFragment() {
     }
@@ -27,7 +30,7 @@ public class InstructionFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_cooking, container, false);
         TextView numberView = (TextView) rootView.findViewById(R.id.instruction_number);
-        numberView.setText(getString(R.string.step)+" "+String.valueOf(instructionNumber));
+        numberView.setText(getString(R.string.step)+" "+String.valueOf(instructionNumber+1)+" "+getString(R.string.of)+" "+instructionList.size()+":");
         TextView descriptionView = (TextView) rootView.findViewById(R.id.instruction_description);
         descriptionView.setText(instruction.getDescription());
         if (instructionNumber != ApplicationState.getInstance().getInstructionNumber()) {
@@ -51,5 +54,13 @@ public class InstructionFragment extends Fragment {
 
     public void setInstructionNumber(int instructionNumber) {
         this.instructionNumber = instructionNumber;
+    }
+
+    public void setInstructionList(List<Instruction> instructionList) {
+        this.instructionList = instructionList;
+    }
+
+    public List<Instruction> getInstructionList() {
+        return instructionList;
     }
 }

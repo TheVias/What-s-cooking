@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:layout_marginBottom="-8dp"
-        android:layout_marginTop="-4dp"
+        android:layout_marginTop="-8dp"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
 
     <android.support.v4.view.ViewPager
@@ -22,14 +22,13 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <!--
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_media_ff" />
-    -->
+        android:src="@drawable/app_icon"
+        android:tint="@color/white"/>
 
 </android.support.design.widget.CoordinatorLayout>

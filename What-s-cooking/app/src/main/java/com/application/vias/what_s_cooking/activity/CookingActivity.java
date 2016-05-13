@@ -42,6 +42,7 @@ public class CookingActivity extends AbstractActivity {
     private ViewPager mViewPager;
 
     private ProgressBar progressBar;
+    private FloatingActionButton fab;
     private int currentInstructionNumber;
     private List<Instruction> listInstructions;
 
@@ -57,13 +58,13 @@ public class CookingActivity extends AbstractActivity {
             dish = state.getDish();
             currentInstructionNumber = state.getInstructionNumber();
         } else {
-            // Если мы ничего не готовили, то начинаем
+            // TODO: Если мы ничего не готовим, то отправляем на главное активити
+            // Пока что заглушка:
             dish = state.getHelper().getDishesByIngredients(state.getHelper().getAllIngredients()).get(0);
             currentInstructionNumber = 0;
             // Записываем в стейт, что у нас началась готовочка
             state.setDish(dish);
             state.setInstructionNumber(currentInstructionNumber);
-
         }
         // Ставим заголовок название нашего блюда
         setTitle(dish.getName());
@@ -79,8 +80,19 @@ public class CookingActivity extends AbstractActivity {
         mViewPager.setAdapter(instructionsPagerAdapter);
         mViewPager.setCurrentItem(currentInstructionNumber, true);
 
+        // Устанавливаем текущее значение прогресс бара
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         progressBar.setProgress(currentInstructionNumber*100 / listInstructions.size());
+
+        // Кнопка перемотки на текущий этап
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mViewPager.setCurrentItem(currentInstructionNumber, true);
+            }
+        });
+        fab.hide();
 
         // Этот листнер слушает переключение этапов готовки и сохраняет в state номер текущего
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -91,6 +103,11 @@ public class CookingActivity extends AbstractActivity {
 
             @Override
             public void onPageSelected(int position) {
+                if (currentInstructionNumber != mViewPager.getCurrentItem()) {
+                    fab.show();
+                } else {
+                    fab.hide();
+                }
                 /*
                 currentInstructionNumber = position;
                 ApplicationState.getInstance().setInstructionNumber(currentInstructionNumber);
@@ -104,23 +121,11 @@ public class CookingActivity extends AbstractActivity {
 
             }
         });
-
-        /*
-        // Просто кнопочка перемотки на определенный фрагменты
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mViewPager.setCurrentItem(2, true);
-                Snackbar.make(view,"Это типо будет перелистывание на текущий этап готовки",Snackbar.LENGTH_SHORT).show();
-            }
-        });
-        */
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_link_activity, menu);
+        //getMenuInflater().inflate(R.menu.menu_link_activity, menu);
         return true;
     }
 
@@ -149,7 +154,7 @@ public class CookingActivity extends AbstractActivity {
             view.setEnabled(false);
             if (currentInstructionNumber == listInstructions.size()) {
                 progressBar.setProgress(100);
-                Toast.makeText(getApplicationContext(),"БЛЮДО ГОТОВО",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"БЛЮДО ГОТОВО",Toast.LENGTH_SHORT).show();
                 goToNewActivity(RatingActivity.class);
             } else {
                 instructionCompleteBtn = (Button) mViewPager.getChildAt(currentInstructionNumber).findViewById(R.id.instruction_complete);

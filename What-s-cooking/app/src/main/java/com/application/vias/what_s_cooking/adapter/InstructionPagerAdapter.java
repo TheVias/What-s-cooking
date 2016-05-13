@@ -25,6 +25,7 @@ public class InstructionPagerAdapter extends FragmentPagerAdapter {
         InstructionFragment fragment = new InstructionFragment();
         fragment.setInstruction(instructionList.get(position));
         fragment.setInstructionNumber(instructionList.get(position).getInstruction_num() - 1);
+        fragment.setInstructionList(instructionList);
         return fragment;
     }
 

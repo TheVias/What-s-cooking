@@ -19,7 +19,13 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="step">шаг</string>
     <string name="enjoy_your_meal">Приятного аппетита!</string>
-    <string name="your_meal">Вы приготовили ваше блюдо</string>
-    <string name="in_time">за какие-то жалкие</string>
+    <string name="your_meal">Вы приготовили</string>
+    <string name="in_time">за</string>
     <string name="minutes">минут</string>
+    <string name="taste">вкуснота</string>
+    <string name="cost">стоимость</string>
+    <string name="difficulty">сложность</string>
+    <string name="please_rate">пожалуйста, оцените это блюдо</string>
+    <string name="pass_through">пропустить</string>
+    <string name="of">из</string>
 </resources>
