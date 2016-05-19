@@ -39,7 +39,7 @@ public class MainActivity extends AbstractActivity {
                         goToNewActivity(LinkActivity.class);
                         break;
                     case 1:
-                        Toast.makeText(getApplicationContext(),R.string.option2,Toast.LENGTH_SHORT).show();
+                        goToNewActivity(RecipeRVActivity.class);
                         break;
                     case 2:
                         Toast.makeText(getApplicationContext(),R.string.option3,Toast.LENGTH_SHORT).show();

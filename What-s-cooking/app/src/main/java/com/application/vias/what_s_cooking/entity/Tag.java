@@ -11,7 +11,7 @@ public class Tag implements Serializable {
     private int _id;
     private String name;
 
-    public Tag(int _id, String name) {
+    public Tag() {
         this._id = _id;
         this.name = name;
     }

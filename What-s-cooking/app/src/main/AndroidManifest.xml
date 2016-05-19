@@ -23,6 +23,7 @@
         <activity android:name=".activity.CookingActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name=".activity.RatingActivity" />
+        <activity android:name=".activity.RecipeRVActivity" />
     </application>
 
 </manifest>

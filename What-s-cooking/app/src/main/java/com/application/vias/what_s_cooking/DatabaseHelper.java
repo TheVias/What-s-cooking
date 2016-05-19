@@ -11,6 +11,7 @@ import com.application.vias.what_s_cooking.entity.Category;
 import com.application.vias.what_s_cooking.entity.Dish;
 import com.application.vias.what_s_cooking.entity.Ingredient;
 import com.application.vias.what_s_cooking.entity.Instruction;
+import com.application.vias.what_s_cooking.entity.Tag;
 import com.application.vias.what_s_cooking.enums.DBColumn;
 
 import java.util.ArrayList;
@@ -174,6 +175,10 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
         return new Category(id,name);
     }
 
+
+
+
+
     public List<Category> getAllCategories() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(DBColumn.CATEGORY.getName(), DBColumn.CATEGORY.getColumns(),
@@ -196,6 +201,7 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
         db.close();
         return list;
     }
+
 
     public List<Ingredient> getAllIngredients() {
         SQLiteDatabase db = getReadableDatabase();
@@ -302,6 +308,46 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
                     dish.set_id(id);
                     dish.setName(name);
                     list.add(dish);
+                } while (cursor.moveToNext());
+            } else {
+                return null;
+            }
+            cursor.close();
+            db.close();
+        }
+        return list;
+    }
+
+    public List<Tag> getTagByIngredients(List<Tag> tags){
+        SQLiteDatabase db = getReadableDatabase();
+        /*
+        Cursor cursor = db.query(DBColumn.INGREDIENT.getName(), DBColumn.INGREDIENT.getColumns(),
+                "category = ?", new String[]{String.valueOf(category.get_id())},
+                null, null, null) ;
+        */
+        List<Tag> list = new ArrayList<Tag>();
+        if (!tags.isEmpty()) {
+            String[] ids = new String[tags.size()];
+            String query = "select * from tag where _id in (?";
+            int i = 0;
+            for (Tag tag : tags) {
+                ids[i] = String.valueOf(tag.get_id());
+                if (i!=0) {
+                    query = query.concat(", ?");
+                }
+                i++;
+            }
+            Cursor cursor = db.rawQuery(query+")", ids);
+            int id;
+            String name;
+            if (cursor.moveToFirst()) {
+                do {
+                    id = cursor.getInt(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(0)));
+                    name = cursor.getString(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(1)));
+                    Tag tag = new Tag();
+                    tag.set_id(id);
+                    tag.setName(name);
+                    list.add(tag);
                 } while (cursor.moveToNext());
             } else {
                 return null;
