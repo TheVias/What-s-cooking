@@ -286,6 +286,7 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
                 null, null, null) ;
         */
         List<Dish> list = new ArrayList<Dish>();
+
         if (!ingredients.isEmpty()) {
             String[] ids = new String[ingredients.size()];
             String query = "select * from dish where _id in (?";
