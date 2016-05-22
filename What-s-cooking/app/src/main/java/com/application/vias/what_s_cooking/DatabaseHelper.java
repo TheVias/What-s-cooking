@@ -83,6 +83,7 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
 
         db.execSQL(DATABASE_INSERT_DISH_SCRIPT1);
         db.execSQL(DATABASE_INSERT_DISH_SCRIPT2);
+        db.execSQL(DATABASE_INSERT_DISH_SCRIPT3);
 
         db.execSQL(DATABASE_INSERT_DISH_INGR_SCRIPT1);
         db.execSQL(DATABASE_INSERT_DISH_INGR_SCRIPT2);

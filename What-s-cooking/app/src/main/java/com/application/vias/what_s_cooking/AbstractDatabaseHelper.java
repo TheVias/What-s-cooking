@@ -50,7 +50,9 @@ public class AbstractDatabaseHelper extends SQLiteOpenHelper {
             + "r_simple INTEGER, "
             + "r_origin INTEGER, "
             + "r_cashtime INTEGER, "
-            + "date_create TEXT);";
+            + "date_create TEXT,"
+            + "description TEXT,"
+            +"image TEXT);";
 
     //Созадние таблицы Dish_INGR #6
     protected static final String DATABASE_CREATE_SCRIPT6 = " CREATE TABLE DISH_INGR("
@@ -162,11 +164,15 @@ public class AbstractDatabaseHelper extends SQLiteOpenHelper {
 
     //Добавление информации в таблицу DISH
     protected static final String DATABASE_INSERT_DISH_SCRIPT1 = "INSERT INTO DISH "
-            + "(name, vote_simple_count, vote_origin_count, vote_cashtime_count, r_simple, r_origin,r_cashtime,date_create) "
-            + "VALUES ('Жаркое',1,1,1,5,3,4, ' ');";
+            + "(name, vote_simple_count, vote_origin_count, vote_cashtime_count, r_simple, r_origin,r_cashtime,date_create, description, image) "
+            + "VALUES ('Жаркое',1,1,1,5,3,4, ' ','Очень вкусное и сытное блюдо! Не требует больших усилий!','jarkoe.jpg');";
     protected static final String DATABASE_INSERT_DISH_SCRIPT2 = "INSERT INTO DISH "
-            + "(name, vote_simple_count, vote_origin_count, vote_cashtime_count, r_simple, r_origin,r_cashtime,date_create) "
-            + "VALUES ('Рыба со сливочным соусом',1,1,1,3,5,2, ' ');";
+            + "(name, vote_simple_count, vote_origin_count, vote_cashtime_count, r_simple, r_origin,r_cashtime,date_create, description, image) "
+            + "VALUES ('Рыба со сливочным соусом',1,1,1,3,5,2, ' ','Изысканное блюдо для гурманов','fishcream.jpg');";
+    protected static final String DATABASE_INSERT_DISH_SCRIPT3 = "INSERT INTO DISH "
+            + "(name, vote_simple_count, vote_origin_count, vote_cashtime_count, r_simple, r_origin,r_cashtime,date_create, description, image) "
+            + "VALUES ('Гречка с водой',1,1,1,2,2,2, ' ','Любимое блюдо Степы','grechka.jpg');";
+
 
     //Добавление информации в таблицу DISH_INGR
     protected static final String DATABASE_INSERT_DISH_INGR_SCRIPT1 = "INSERT INTO DISH_INGR "
