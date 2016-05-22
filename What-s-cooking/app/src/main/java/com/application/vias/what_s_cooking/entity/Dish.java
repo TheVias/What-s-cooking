@@ -17,10 +17,12 @@ public class Dish implements Serializable {
     private LinkedList <Ingredient> ingredients;
     private LinkedList <Instruction> instructions;
     private LinkedList <Tag> tags;
+    private String description;
+    private CookingImage image;
 
     public Dish() {}
 
-    public Dish(int _id, String name, Date date_create, int vote_simple_count, int vote_origin_count, int vote_cashtime_count, int r_simple, int r_origin, int r_cashtime, LinkedList<Ingredient> ingredients, LinkedList<Instruction> instructions, LinkedList<Tag> tags) {
+    public Dish(int _id, String name, Date date_create, int vote_simple_count, int vote_origin_count, int vote_cashtime_count, int r_simple, int r_origin, int r_cashtime, LinkedList<Ingredient> ingredients, LinkedList<Instruction> instructions, LinkedList<Tag> tags, String description, CookingImage image) {
         this._id = _id;
         this.name = name;
         this.date_create = date_create;
@@ -33,6 +35,9 @@ public class Dish implements Serializable {
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.tags = tags;
+        this.description = description;
+
+        this.image = image;
     }
 
     public int get_id() {
@@ -141,5 +146,21 @@ public class Dish implements Serializable {
 
     public int getRate_cashtime(){
         return r_cashtime/vote_cashtime_count;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public CookingImage getImage() {
+        return image;
+    }
+
+    public void setImage(CookingImage image) {
+        this.image = image;
     }
 }
