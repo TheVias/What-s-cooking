@@ -10,9 +10,9 @@
         />
     -->
 
-    <item android:id = "@+id/item_back"
-        android:title="@string/get_back"
-        android:icon="@drawable/get_back"
+    <item android:id = "@+id/item_clear_list"
+        android:title="@string/clear"
+        android:icon="@drawable/refresh"
         android:orderInCategory="1"
         app:showAsAction="ifRoom"
         />

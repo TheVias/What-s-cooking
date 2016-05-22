@@ -13,12 +13,12 @@ import java.util.List;
  * и объектов сессии.
  */
 public class ApplicationState extends Application {
+    volatile private static ApplicationState singleton;
     volatile private String name;
     volatile private DatabaseHelper helper;
     volatile private List<Ingredient> ingredientList;
     volatile private Dish dish;
     volatile private int instructionNumber;
-    volatile private static ApplicationState singleton;
     volatile private String serverIp;
     volatile private int serverPort;
     volatile private int cookingTime;

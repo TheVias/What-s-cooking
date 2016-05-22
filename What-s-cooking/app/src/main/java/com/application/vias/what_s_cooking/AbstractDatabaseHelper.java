@@ -66,8 +66,8 @@ public class AbstractDatabaseHelper extends SQLiteOpenHelper {
     protected static final String DATABASE_CREATE_SCRIPT7 = "CREATE TABLE DISH_INSTR( "
             + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
             + "dish INTEGER, "
-            + "instruction_num INTEGER,"
             + "instruction INTEGER, "
+            + "instruction_num INTEGER,"
             + "FOREIGN KEY (dish) REFERENCES DISH(_id), "
             + "FOREIGN KEY (instruction) REFERENCES INSTRUCTION(_id));";
 

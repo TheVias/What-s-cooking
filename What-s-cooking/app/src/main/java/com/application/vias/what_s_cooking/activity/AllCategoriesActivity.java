@@ -1,5 +1,6 @@
 package com.application.vias.what_s_cooking.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -53,7 +54,9 @@ public class AllCategoriesActivity extends AbstractActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToNewActivity(LinkActivity.class);
+                Intent intent = new Intent(getApplicationContext(),RecipeRVActivity.class);
+                intent.putExtra("action","show_for_ingredients");
+                startActivity(intent);
             }
         });
     }

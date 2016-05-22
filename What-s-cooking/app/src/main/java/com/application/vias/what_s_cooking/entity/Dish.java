@@ -7,6 +7,7 @@ import com.application.vias.what_s_cooking.LocalLoad;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Svetlana on 09.04.2016.
@@ -15,18 +16,18 @@ public class Dish implements Serializable {
 
     private int _id;
     private String name;
-    private Date date_create;
+    private String date_create;
     private int vote_simple_count,vote_origin_count,vote_cashtime_count;
     private int r_simple, r_origin, r_cashtime;
-    private LinkedList <Ingredient> ingredients;
-    private LinkedList <Instruction> instructions;
-    private LinkedList <Tag> tags;
+    private List <Ingredient> ingredients;
+    private List<Instruction> instructions;
+    private List <Tag> tags;
     private String description;
     private CookingImage image;
 
     public Dish() {}
 
-    public Dish(int _id, String name, Date date_create, int vote_simple_count, int vote_origin_count, int vote_cashtime_count, int r_simple, int r_origin, int r_cashtime, LinkedList<Ingredient> ingredients, LinkedList<Instruction> instructions, LinkedList<Tag> tags, String description, CookingImage image) {
+    public Dish(int _id, String name, String date_create, int vote_simple_count, int vote_origin_count, int vote_cashtime_count, int r_simple, int r_origin, int r_cashtime, List<Ingredient> ingredients, List<Instruction> instructions, List<Tag> tags, String description, CookingImage image) {
         this._id = _id;
         this.name = name;
         this.date_create = date_create;
@@ -59,11 +60,11 @@ public class Dish implements Serializable {
         this.name = name;
     }
 
-    public Date getDate_create() {
+    public String getDate_create() {
         return date_create;
     }
 
-    public void setDate_create(Date date_create) {
+    public void setDate_create(String date_create) {
         this.date_create = date_create;
     }
 
@@ -115,27 +116,27 @@ public class Dish implements Serializable {
         this.r_cashtime = r_cashtime;
     }
 
-    public LinkedList<Ingredient> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(LinkedList<Ingredient> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public LinkedList<Instruction> getInstructions() {
+    public List<Instruction> getInstructions() {
         return instructions;
     }
 
-    public void setInstructions(LinkedList<Instruction> instructions) {
+    public void setInstructions(List<Instruction> instructions) {
         this.instructions = instructions;
     }
 
-    public LinkedList<Tag> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(LinkedList<Tag> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 

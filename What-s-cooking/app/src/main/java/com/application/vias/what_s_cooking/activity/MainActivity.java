@@ -1,5 +1,6 @@
 package com.application.vias.what_s_cooking.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,9 +38,11 @@ public class MainActivity extends AbstractActivity {
                 switch (position) {
                     case 0:
                         goToNewActivity(LinkActivity.class);
-                        break;
+                    break;
                     case 1:
-                        goToNewActivity(RecipeRVActivity.class);
+                        Intent intent = new Intent(getApplicationContext(),RecipeRVActivity.class);
+                        intent.putExtra("action","show_all");
+                        startActivity(intent);
                         break;
                     case 2:
                         Toast.makeText(getApplicationContext(),R.string.option3,Toast.LENGTH_SHORT).show();

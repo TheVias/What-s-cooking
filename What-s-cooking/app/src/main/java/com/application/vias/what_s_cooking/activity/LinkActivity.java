@@ -1,5 +1,6 @@
 package com.application.vias.what_s_cooking.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -28,6 +29,7 @@ public class LinkActivity extends AbstractActivity {
 
     private List<Ingredient> listIngredient;
     private IngredientAdapterRV adapterRV;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +49,17 @@ public class LinkActivity extends AbstractActivity {
             }
         });
 
+        /*
         FloatingActionButton fab_confirm = (FloatingActionButton) findViewById(R.id.fab_confirm);
         fab_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Набор составлен!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(),RecipeRVActivity.class);
+                intent.putExtra("action","show_for_ingredients");
+                startActivity(intent);
             }
         });
-
+        */
     }
 
     @Override
@@ -88,9 +93,12 @@ public class LinkActivity extends AbstractActivity {
                 //refreshIngredientsList();
                 return true;
             */
-            case R.id.item_back: {
+            case R.id.item_clear_list: {
                 //goToNewActivity(MainActivity.class);
-                finish();
+                ApplicationState.getInstance().getIngredientList().clear();
+                listIngredient.clear();
+                adapterRV.notifyDataSetChanged();
+                Snackbar.make(recyclerView,"Список очищен",Snackbar.LENGTH_SHORT).show();
                 break;
             }
         }
@@ -113,7 +121,7 @@ public class LinkActivity extends AbstractActivity {
         //IngredientAdapter adapter = new IngredientAdapter(this,listIngredient);
         //listIngredientView.setAdapter(adapter);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -167,4 +175,8 @@ public class LinkActivity extends AbstractActivity {
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
+    @Override
+    public void onBackPressed() {
+        goToNewActivity(MainActivity.class);
+    }
 }

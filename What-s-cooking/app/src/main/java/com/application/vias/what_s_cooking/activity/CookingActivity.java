@@ -1,5 +1,6 @@
 package com.application.vias.what_s_cooking.activity;
 
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -163,6 +165,22 @@ public class CookingActivity extends AbstractActivity {
             instructionsPagerAdapter.notifyDataSetChanged();
             mViewPager.setCurrentItem(currentInstructionNumber,true);
         }
+    }
+
+    public void setTimer(long time) {
+        //TODO: реализовать будильник для инструкции
+        Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
+        chronometer.start();
+        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                if (SystemClock.elapsedRealtime()-chronometer.getBase() > 5000) {
+                    Toast.makeText(getApplicationContext(),"угу",Toast.LENGTH_SHORT).show();
+
+                    chronometer.stop();
+                }
+            }
+        });
     }
 
 }

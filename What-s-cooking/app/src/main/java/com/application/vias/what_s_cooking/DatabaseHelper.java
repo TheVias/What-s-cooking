@@ -8,12 +8,14 @@ import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.application.vias.what_s_cooking.entity.Category;
+import com.application.vias.what_s_cooking.entity.CookingImage;
 import com.application.vias.what_s_cooking.entity.Dish;
 import com.application.vias.what_s_cooking.entity.Ingredient;
 import com.application.vias.what_s_cooking.entity.Instruction;
 import com.application.vias.what_s_cooking.entity.Tag;
 import com.application.vias.what_s_cooking.enums.DBColumn;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -176,10 +178,6 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
         return new Category(id,name);
     }
 
-
-
-
-
     public List<Category> getAllCategories() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(DBColumn.CATEGORY.getName(), DBColumn.CATEGORY.getColumns(),
@@ -203,7 +201,6 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
         return list;
     }
 
-
     public List<Ingredient> getAllIngredients() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(DBColumn.INGREDIENT.getName(), DBColumn.INGREDIENT.getColumns(),
@@ -219,6 +216,73 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
                 name = cursor.getString(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(1)));
                 cat = cursor.getInt(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(2)));
                 list.add(new Ingredient(id, name, cat));
+            } while (cursor.moveToNext());
+        } else {
+            return null;
+        }
+        cursor.close();
+        db.close();
+        return list;
+    }
+
+    public List<Dish> getAllDishes() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(DBColumn.DISH.getName(), DBColumn.DISH.getColumns(),
+                null, null,
+                null, null, null);
+        int _id,vote_simple_count,vote_origin_count,vote_cashtime_count,r_simple,r_origin,r_cashtime;
+        String name,date_create,description,image;
+        List<Dish> list = new ArrayList<Dish>();
+        if (cursor.moveToFirst()) {
+            do {
+                _id = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH.getColumn(0)));
+                name = cursor.getString(cursor.getColumnIndex(DBColumn.DISH.getColumn(1)));
+                vote_simple_count = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH.getColumn(2)));
+                vote_origin_count = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH.getColumn(3)));
+                vote_cashtime_count = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH.getColumn(4)));
+                r_simple = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH.getColumn(5)));
+                r_origin = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH.getColumn(6)));
+                r_cashtime = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH.getColumn(7)));
+                date_create = cursor.getString(cursor.getColumnIndex(DBColumn.DISH.getColumn(8)));
+                description = cursor.getString(cursor.getColumnIndex(DBColumn.DISH.getColumn(9)));
+                image = cursor.getString(cursor.getColumnIndex(DBColumn.DISH.getColumn(10)));
+                Dish dish = new Dish();
+                dish.set_id(_id);
+                dish.setName(name);
+                dish.setVote_origin_count(vote_origin_count);
+                dish.setVote_cashtime_count(vote_cashtime_count);
+                dish.setVote_simple_count(vote_simple_count);
+                dish.setR_cashtime(r_cashtime);
+                dish.setR_origin(r_origin);
+                dish.setR_simple(r_simple);
+                dish.setDate_create(date_create);
+                //подгрузка изображения
+                ILoadImage loader = new LocalLoad();
+                dish.setImage(loader.load(image,context));
+                dish.setDescription(description);
+                dish.setInstructions(getInstructionsByDish(dish));
+                dish.setIngredients(getIngredientsByDish(dish));
+                list.add(dish);
+            } while (cursor.moveToNext());
+        } else {
+            return null;
+        }
+        cursor.close();
+        db.close();
+        return list;
+    }
+
+    public List<Ingredient> getIngredientsByDish(Dish dish) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(DBColumn.DISH_INGR.getName(), DBColumn.DISH_INGR.getColumns(),
+                "dish = ?", new String[]{String.valueOf(dish.get_id())},
+                null, null, null) ;
+        int ingr_id;
+        List<Ingredient> list = new ArrayList<Ingredient>();
+        if (cursor.moveToFirst()) {
+            do {
+                ingr_id = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH_INGR.getColumn(2)));
+                list.add(getIngredientById(ingr_id));
             } while (cursor.moveToNext());
         } else {
             return null;
@@ -266,7 +330,7 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
             do {
                 dish_id = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH_INSTR.getColumn(1)));
                 instr_id = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH_INSTR.getColumn(2)));
-                instr_num = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH_INSTR.getColumn(3)));
+                instr_num = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH_INSTR.getColumn(3))) + 1;
                 Instruction instruction = getInstructionById(instr_id);
                 instruction.setInstruction_num(instr_num);
                 list.add(instruction);
@@ -281,83 +345,20 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
 
     public List<Dish> getDishesByIngredients(List<Ingredient> ingredients){
         SQLiteDatabase db = getReadableDatabase();
-        /*
-        Cursor cursor = db.query(DBColumn.INGREDIENT.getName(), DBColumn.INGREDIENT.getColumns(),
-                "category = ?", new String[]{String.valueOf(category.get_id())},
-                null, null, null) ;
-        */
-        List<Dish> list = new ArrayList<Dish>();
+        List<Dish> list = getAllDishes();
+        List<Dish> final_list = new ArrayList<Dish>();
 
-        if (!ingredients.isEmpty()) {
-            String[] ids = new String[ingredients.size()];
-            String query = "select * from dish where _id in (?";
-            int i = 0;
-            for (Ingredient ingredient : ingredients) {
-                ids[i] = String.valueOf(ingredient.get_id());
-                if (i!=0) {
-                    query = query.concat(", ?");
+        for (Dish dish : list) {
+            if (ingredients != null && dish.getIngredients() != null) {
+                if (ingredients.containsAll(dish.getIngredients())) {
+                    final_list.add(dish);
                 }
-                i++;
-            }
-            Cursor cursor = db.rawQuery(query+")", ids);
-            int id;
-            String name;
-            if (cursor.moveToFirst()) {
-                do {
-                    id = cursor.getInt(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(0)));
-                    name = cursor.getString(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(1)));
-                    Dish dish = new Dish();
-                    dish.set_id(id);
-                    dish.setName(name);
-                    list.add(dish);
-                } while (cursor.moveToNext());
             } else {
-                return null;
+                final_list.add(dish);
             }
-            cursor.close();
-            db.close();
         }
-        return list;
-    }
 
-    public List<Tag> getTagByIngredients(List<Tag> tags){
-        SQLiteDatabase db = getReadableDatabase();
-        /*
-        Cursor cursor = db.query(DBColumn.INGREDIENT.getName(), DBColumn.INGREDIENT.getColumns(),
-                "category = ?", new String[]{String.valueOf(category.get_id())},
-                null, null, null) ;
-        */
-        List<Tag> list = new ArrayList<Tag>();
-        if (!tags.isEmpty()) {
-            String[] ids = new String[tags.size()];
-            String query = "select * from tag where _id in (?";
-            int i = 0;
-            for (Tag tag : tags) {
-                ids[i] = String.valueOf(tag.get_id());
-                if (i!=0) {
-                    query = query.concat(", ?");
-                }
-                i++;
-            }
-            Cursor cursor = db.rawQuery(query+")", ids);
-            int id;
-            String name;
-            if (cursor.moveToFirst()) {
-                do {
-                    id = cursor.getInt(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(0)));
-                    name = cursor.getString(cursor.getColumnIndex(DBColumn.INGREDIENT.getColumn(1)));
-                    Tag tag = new Tag();
-                    tag.set_id(id);
-                    tag.setName(name);
-                    list.add(tag);
-                } while (cursor.moveToNext());
-            } else {
-                return null;
-            }
-            cursor.close();
-            db.close();
-        }
-        return list;
+        return final_list;
     }
 
     public DBSnapshot getDBSnapshot () {

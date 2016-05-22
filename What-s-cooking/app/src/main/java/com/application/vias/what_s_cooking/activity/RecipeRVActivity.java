@@ -16,28 +16,30 @@ public class RecipeRVActivity extends AbstractActivity {
 
     public List<Dish> recipe;
     public RecyclerView recyclerView;
-    {}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.recipe_rv_activity);
 
         initializeData();
         initializeAdapter();
-
-
-
     }
 
     private void initializeData() {
         recipe = new ArrayList<>();
         ApplicationState state = ApplicationState.getInstance();
         DatabaseHelper helper = state.getHelper();
+        List<Dish> dishList = null;
 
-        List<Dish> dishList = helper.getDishesByIngredients(helper.getAllIngredients());
-        //List<Dish> tagList = helper.getTagByIngredients()
+        String action = (String)getIntent().getExtras().get("action");
+        if (action.equals("show_all")) {
+            dishList = helper.getAllDishes();
+        }
+        if (action.equals("show_for_ingredients")) {
+            dishList = helper.getDishesByIngredients(state.getIngredientList());
+        }
+
         recipe.addAll(dishList);
 
     }
@@ -49,7 +51,6 @@ public class RecipeRVActivity extends AbstractActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         RecipeAdapter adapter = new RecipeAdapter(recipe);
         recyclerView.setAdapter(adapter);
-
     }
 
 }
