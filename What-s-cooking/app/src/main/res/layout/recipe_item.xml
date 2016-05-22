@@ -20,7 +20,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="5dp"
-            android:src="@drawable/app_icon"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
             android:layout_margin="5dp"

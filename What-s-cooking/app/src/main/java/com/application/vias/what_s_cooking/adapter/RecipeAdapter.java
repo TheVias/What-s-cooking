@@ -58,7 +58,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.recipeView
     public void onBindViewHolder(recipeViewHolder recipeViewHolder, int i) {
         final Dish recipe = recipes.get(i);
         recipeViewHolder.recipeName.setText(recipe.getName());
-        recipeViewHolder.recipeText.setText((CharSequence) "Описание: " + "\n" + "Тут будет описание, но его пока нет. Т.к его не в базе. Но будет выглядеть примерно так");
+        recipeViewHolder.recipeText.setText(recipe.getDescription());
         //recipeViewHolder.recipeTag
 
     }

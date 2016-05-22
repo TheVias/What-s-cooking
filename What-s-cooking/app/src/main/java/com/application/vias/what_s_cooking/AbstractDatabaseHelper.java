@@ -165,13 +165,13 @@ public class AbstractDatabaseHelper extends SQLiteOpenHelper {
     //Добавление информации в таблицу DISH
     protected static final String DATABASE_INSERT_DISH_SCRIPT1 = "INSERT INTO DISH "
             + "(name, vote_simple_count, vote_origin_count, vote_cashtime_count, r_simple, r_origin,r_cashtime,date_create, description, image) "
-            + "VALUES ('Жаркое',1,1,1,5,3,4, ' ','Очень вкусное и сытное блюдо! Не требует больших усилий!','jarkoe.jpg');";
+            + "VALUES ('Жаркое',1,1,1,5,3,4, ' ','Очень вкусное и сытное блюдо! Не требует больших усилий!','jarkoe');";
     protected static final String DATABASE_INSERT_DISH_SCRIPT2 = "INSERT INTO DISH "
             + "(name, vote_simple_count, vote_origin_count, vote_cashtime_count, r_simple, r_origin,r_cashtime,date_create, description, image) "
-            + "VALUES ('Рыба со сливочным соусом',1,1,1,3,5,2, ' ','Изысканное блюдо для гурманов','fishcream.jpg');";
+            + "VALUES ('Рыба со сливочным соусом',1,1,1,3,5,2, ' ','Изысканное блюдо для гурманов','fishcream');";
     protected static final String DATABASE_INSERT_DISH_SCRIPT3 = "INSERT INTO DISH "
             + "(name, vote_simple_count, vote_origin_count, vote_cashtime_count, r_simple, r_origin,r_cashtime,date_create, description, image) "
-            + "VALUES ('Гречка с водой',1,1,1,2,2,2, ' ','Любимое блюдо Степы','grechka.jpg');";
+            + "VALUES ('Гречка с водой',1,1,1,2,2,2, ' ','Любимое блюдо Степы','grechka');";
 
 
     //Добавление информации в таблицу DISH_INGR

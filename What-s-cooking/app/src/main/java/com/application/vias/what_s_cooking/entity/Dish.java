@@ -1,5 +1,9 @@
 package com.application.vias.what_s_cooking.entity;
 
+import android.content.Context;
+
+import com.application.vias.what_s_cooking.LocalLoad;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
@@ -36,7 +40,6 @@ public class Dish implements Serializable {
         this.instructions = instructions;
         this.tags = tags;
         this.description = description;
-
         this.image = image;
     }
 
