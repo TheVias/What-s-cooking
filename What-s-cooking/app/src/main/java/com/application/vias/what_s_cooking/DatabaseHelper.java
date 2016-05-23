@@ -108,7 +108,8 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
         Log.w("SQLite", "Обновляемся с версии " + oldVersion + " на версию " + newVersion);
 
         // Удаляем старую таблицу и создаём новую
-        db.execSQL("DROP TABLE IF IT EXISTS ");
+
+        context.deleteDatabase(DATABASE_NAME);
         // Создаём новую таблицу
         onCreate(db);
     }

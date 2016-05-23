@@ -1,6 +1,8 @@
 package com.application.vias.what_s_cooking.adapter;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spanned;
@@ -19,6 +21,8 @@ import com.application.vias.what_s_cooking.entity.Dish;
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.recipeViewHolder> {
+
+
 
     public static class recipeViewHolder extends RecyclerView.ViewHolder {
 
@@ -60,6 +64,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.recipeView
         final Dish recipe = recipes.get(i);
         recipeViewHolder.recipeName.setText(recipe.getName());
         recipeViewHolder.recipeText.setText(recipe.getDescription());
+        recipeViewHolder.recipePhoto.setImageBitmap(recipe.getImage().getImage());
         recipeViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -35,6 +35,7 @@ public class RecipeRVActivity extends AbstractActivity {
         String action = (String)getIntent().getExtras().get("action");
         if (action.equals("show_all")) {
             dishList = helper.getAllDishes();
+
         }
         if (action.equals("show_for_ingredients")) {
             dishList = helper.getDishesByIngredients(state.getIngredientList());

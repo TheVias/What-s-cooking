@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 /**
  * Содержит static-поля db-хелпера
@@ -14,7 +15,7 @@ public class AbstractDatabaseHelper extends SQLiteOpenHelper {
     //имя базы данных
     protected static final String DATABASE_NAME = "database.db";
     //версия базы данных
-    protected static final int DATABASE_VERSION = 1;
+    protected static final int DATABASE_VERSION = 2;
 
     //созданице таблицы Instruction #1
     protected static final String DATABASE_CREATE_SCRIPT1 = "Create table INSTRUCTION ( "
