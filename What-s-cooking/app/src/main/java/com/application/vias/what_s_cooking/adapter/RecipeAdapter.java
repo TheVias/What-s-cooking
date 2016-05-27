@@ -76,13 +76,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.recipeView
         recipeViewHolder.recipeName.setText(recipe.getName());
         recipeViewHolder.recipeText.setText(recipe.getDescription());
         ImageView imageView = recipeViewHolder.recipePhoto;
-        if (recipe.getImage() == null) {
-            imageView.setImageDrawable(null);
-            AsyncLoader loader = new AsyncLoader(context,this,recipe,imageView,imageView.getWidth(),imageView.getHeight());
-            loader.execute();
-        } else {
-            imageView.setImageBitmap(recipe.getImage().getImage());
-        }
+        AsyncLoader loader = new AsyncLoader(context,this,recipe,imageView,imageView.getWidth(),imageView.getHeight());
+        loader.execute();
         //recipeViewHolder.recipePhoto.setImageBitmap(recipe.getImage().getImage());
         recipeViewHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override

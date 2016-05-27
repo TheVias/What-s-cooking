@@ -60,7 +60,6 @@ public class RecipeRVActivity extends AbstractActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         adapter = new RecipeAdapter(recipe,getApplicationContext());
         recyclerView.setAdapter(adapter);
-
     }
 
 }

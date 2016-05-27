@@ -10,19 +10,21 @@ import com.application.vias.what_s_cooking.adapter.RecipeAdapter;
 import com.application.vias.what_s_cooking.entity.CookingImage;
 import com.application.vias.what_s_cooking.entity.Dish;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
  * Created by andrey on 27.05.2016.
  */
-public class AsyncLoader extends AsyncTask<Void,Void,Void> {
-    Context context;
-    Dish dish;
-    ImageView imageView;
-    RecipeAdapter adapter;
-    CookingImage cookingImage;
-    int viewHeight;
-    int viewWidth;
+public class AsyncLoader extends AsyncTask<Void,Void,Bitmap> {
+
+    private Context context;
+    private Dish dish;
+    private ImageView imageView;
+    private RecipeAdapter adapter;
+    private int viewHeight;
+    private int viewWidth;
+    private WeakReference<ImageView> imageViewReference;
     /*
     RecyclerView recyclerView;
     RecipeAdapter adapter;
@@ -35,6 +37,7 @@ public class AsyncLoader extends AsyncTask<Void,Void,Void> {
         this.adapter = adapter;
         this.viewHeight = viewHeight;
         this.viewWidth = viewWidth;
+        imageViewReference = new WeakReference<ImageView>(imageView);
     }
 
     /*
@@ -46,18 +49,16 @@ public class AsyncLoader extends AsyncTask<Void,Void,Void> {
     */
 
     @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
-
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-        Bitmap bitmap = cookingImage.getImage();
-        bitmap = Bitmap.createScaledBitmap(bitmap, imageView.getWidth(), imageView.getHeight(), true);
-        dish.setImage(cookingImage);
+    protected void onPostExecute(Bitmap bitmap) {
+        if (imageViewReference != null && bitmap != null) {
+            final ImageView imageView = imageViewReference.get();
+            if (imageView != null) {
+                imageView.setImageBitmap(bitmap);
+            }
+        }
+        /*
         imageView.setImageBitmap(bitmap);
-        adapter.notifyDataSetChanged();
+        */
     }
 
     @Override
@@ -66,15 +67,9 @@ public class AsyncLoader extends AsyncTask<Void,Void,Void> {
     }
 
     @Override
-    protected Void doInBackground(Void... params) {
+    protected Bitmap doInBackground(Void... params) {
         ILoadImage loader = new LocalLoad();
-        cookingImage = loader.load(dish.getImage_res(), context, viewWidth, viewHeight);
-        /*
-        List<Dish> list = adapter.getRecipes();
-        for (int i = 0; i < adapter.getItemCount(); i++) {
-            recyclerView.getChildAt(i);
-        }
-        */
-        return null;
+        Bitmap bitmap = loader.load(dish.getImage_res(), context, viewWidth, viewHeight);
+        return bitmap;
     }
 }

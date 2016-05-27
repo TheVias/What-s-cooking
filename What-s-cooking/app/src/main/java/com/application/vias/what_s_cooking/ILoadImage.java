@@ -1,6 +1,7 @@
 package com.application.vias.what_s_cooking;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import com.application.vias.what_s_cooking.entity.CookingImage;
 
@@ -9,5 +10,5 @@ import com.application.vias.what_s_cooking.entity.CookingImage;
  */
 public interface ILoadImage {
 
-    CookingImage load(String name, Context context, int reqWidth, int reqHeight);
+    Bitmap load(String name, Context context, int reqWidth, int reqHeight);
 }
