@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.vias.what_s_cooking.ApplicationState;
+import com.application.vias.what_s_cooking.AsyncLoader;
 import com.application.vias.what_s_cooking.R;
 import com.application.vias.what_s_cooking.activity.CookingActivity;
 import com.application.vias.what_s_cooking.entity.Dish;
@@ -44,8 +45,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.recipeView
         }
     }
 
-    List<Dish> recipes;
-    Context context;
+    private List<Dish> recipes;
+    private Context context;
 
     public RecipeAdapter(List<Dish> recipes){
         this.recipes = recipes;
@@ -74,7 +75,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.recipeView
         recipe.setContext(context);
         recipeViewHolder.recipeName.setText(recipe.getName());
         recipeViewHolder.recipeText.setText(recipe.getDescription());
-        recipeViewHolder.recipePhoto.setImageBitmap(recipe.getImage().getImage());
+        ImageView imageView = recipeViewHolder.recipePhoto;
+        if (recipe.getImage() == null) {
+            imageView.setImageDrawable(null);
+            AsyncLoader loader = new AsyncLoader(context,this,recipe,imageView,imageView.getWidth(),imageView.getHeight());
+            loader.execute();
+        } else {
+            imageView.setImageBitmap(recipe.getImage().getImage());
+        }
+        //recipeViewHolder.recipePhoto.setImageBitmap(recipe.getImage().getImage());
         recipeViewHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,4 +104,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.recipeView
         return recipes.size();
     }
 
+    public List<Dish> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<Dish> recipes) {
+        this.recipes = recipes;
+    }
 }

@@ -9,5 +9,5 @@ import com.application.vias.what_s_cooking.entity.CookingImage;
  */
 public interface ILoadImage {
 
-    CookingImage load(String name, Context context);
+    CookingImage load(String name, Context context, int reqWidth, int reqHeight);
 }

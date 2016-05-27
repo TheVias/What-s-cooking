@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
+
 import com.application.vias.what_s_cooking.ApplicationState;
+import com.application.vias.what_s_cooking.AsyncLoader;
 import com.application.vias.what_s_cooking.DatabaseHelper;
 import com.application.vias.what_s_cooking.R;
 import com.application.vias.what_s_cooking.adapter.RecipeAdapter;
@@ -14,8 +17,9 @@ import java.util.List;
 
 public class RecipeRVActivity extends AbstractActivity {
 
-    public List<Dish> recipe;
-    public RecyclerView recyclerView;
+    private List<Dish> recipe;
+    private RecyclerView recyclerView;
+    private RecipeAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,6 @@ public class RecipeRVActivity extends AbstractActivity {
         }
 
         recipe.addAll(dishList);
-
     }
 
     public void initializeAdapter() {
@@ -55,8 +58,9 @@ public class RecipeRVActivity extends AbstractActivity {
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        RecipeAdapter adapter = new RecipeAdapter(recipe,getApplicationContext());
+        adapter = new RecipeAdapter(recipe,getApplicationContext());
         recyclerView.setAdapter(adapter);
+
     }
 
 }

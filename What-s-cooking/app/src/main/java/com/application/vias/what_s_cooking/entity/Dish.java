@@ -28,7 +28,9 @@ public class Dish implements Serializable {
     private String image_res;
     private Context context;
 
-    public Dish() {}
+    public Dish() {
+        image = null;
+    }
 
     public Dish(int _id, String name, String date_create, int vote_simple_count, int vote_origin_count, int vote_cashtime_count, int r_simple, int r_origin, int r_cashtime, List<Ingredient> ingredients, List<Instruction> instructions, List<Tag> tags, String description, CookingImage image) {
         this._id = _id;
@@ -164,8 +166,6 @@ public class Dish implements Serializable {
     }
 
     public CookingImage getImage() {
-        ILoadImage loader = new LocalLoad();
-        setImage(loader.load(image_res,context));
         return image;
     }
 
