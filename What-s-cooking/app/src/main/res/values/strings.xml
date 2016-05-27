@@ -29,4 +29,6 @@
     <string name="pass_through">пропустить</string>
     <string name="of">из</string>
     <string name="clear">очистить</string>
+    <string name="start_timer_btn_text">Запустить таймер</string>
+    <string name="add_to_favorite_btn">В избранное</string>
 </resources>

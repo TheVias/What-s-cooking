@@ -14,11 +14,10 @@
         android:src="@drawable/app_icon_full"/>
     -->
 
-    <GridLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:rowCount="6"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
 
         <TextView
@@ -28,9 +27,6 @@
             android:textAlignment="center"
             android:textSize="30dp"
             android:textColor="@color/colorText"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_columnSpan="2"
             android:layout_marginBottom="@dimen/appbar_padding_top"/>
 
         <TextView
@@ -41,102 +37,153 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/colorText"
             android:textAlignment="center"
-            android:text="@string/please_rate"
-            android:layout_row="1"
-            android:layout_column="0"
-            android:layout_columnSpan="2"/>
+            android:text="@string/please_rate"/>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <GridLayout
+            android:columnCount="2"
+            android:rowCount="3"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/colorText"
-            android:text="@string/taste"
-            android:id="@+id/label_taste"
-            android:layout_row="2"
-            android:layout_column="0"
-            android:layout_gravity="center_vertical"
-            android:padding="@dimen/rating_label_padding"/>
+            android:layout_width="match_parent">
 
-        <SeekBar
-            android:layout_height="wrap_content"
-            android:id="@+id/seekBarTaste"
-            android:layout_row="2"
-            android:layout_column="1"
-            android:indeterminate="false"
-            android:indeterminateOnly="false"
-            android:longClickable="false"
-            android:layout_width="0dip"
-            android:layout_gravity="fill_horizontal|center_vertical"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorText"
+                android:text="@string/taste"
+                android:id="@+id/label_taste"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/rating_label_padding"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/colorText"
-            android:text="@string/cost"
-            android:id="@+id/label_cost"
-            android:layout_row="3"
-            android:layout_column="0"
-            android:layout_gravity="center_vertical"
-            android:padding="@dimen/rating_label_padding"/>
+            <SeekBar
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBarTaste"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:indeterminate="false"
+                android:indeterminateOnly="false"
+                android:longClickable="false"
+                android:layout_width="0dip"
+                android:layout_gravity="fill_horizontal|center_vertical"/>
 
-        <SeekBar
-            android:layout_height="wrap_content"
-            android:id="@+id/seekBarCost"
-            android:layout_row="3"
-            android:layout_column="1"
-            android:indeterminate="false"
-            android:layout_width="0dip"
-            android:layout_gravity="fill_horizontal|center_vertical"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorText"
+                android:text="@string/cost"
+                android:id="@+id/label_cost"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/rating_label_padding"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/colorText"
-            android:text="@string/difficulty"
-            android:id="@+id/label_difficulty"
-            android:layout_row="4"
-            android:layout_column="0"
-            android:layout_gravity="center_vertical"
-            android:padding="@dimen/rating_label_padding"/>
+            <SeekBar
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBarCost"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:indeterminate="false"
+                android:layout_width="0dip"
+                android:layout_gravity="fill_horizontal|center_vertical"/>
 
-        <SeekBar
-            android:layout_height="wrap_content"
-            android:id="@+id/seekBarDiff"
-            android:layout_row="4"
-            android:layout_column="1"
-            android:layout_width="0dip"
-            android:layout_gravity="fill_horizontal|center_vertical"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/colorText"
+                android:text="@string/difficulty"
+                android:id="@+id/label_difficulty"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/rating_label_padding"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/complete"
-            android:id="@+id/instruction_complete"
-            android:onClick="addRate"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/colorAccent"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_row="5"
-            android:layout_column="0"/>
+            <SeekBar
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBarDiff"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:layout_width="0dip"
+                android:layout_gravity="fill_horizontal|center_vertical"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pass_through"
-            android:id="@+id/pass_through"
-            android:onClick="passThroughRate"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/colorAccent"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_row="5"
-            android:layout_column="1"/>
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:rowCount="4"
+            android:columnCount="3">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:top="@dimen/activity_vertical_margin"
+                android:padding="5dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/complete"
+                    android:id="@+id/instruction_complete"
+                    android:onClick="addRate"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/colorAccent"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pass_through"
+                    android:id="@+id/pass_through"
+                    android:onClick="passThroughRate"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/colorAccent"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"/>
+
+            </LinearLayout>
+
+            <!--
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_to_favorite_btn"
+                android:id="@+id/to_favorite_btn"
+                android:onClick="addToFavorite"
+                android:backgroundTintMode="multiply"
+                android:background="@drawable/plus"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:textColor="@color/colorAccent"
+                android:layout_row="1"
+                android:layout_column="0"/>
+            -->
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_to_favorite_btn"
+                android:id="@+id/to_favorite_btn"
+                android:textAllCaps="true"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:checked="false"
+                android:onClick="toFavorite"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:buttonTint="@color/colorAccent"/>
+
+        </GridLayout>
+
         <!--
         <View
             android:layout_width="wrap_content"
@@ -147,20 +194,6 @@
             android:layout_column="0"
             android:layout_columnSpan="2"/>
         -->
-    </GridLayout>
-
-    <!--
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/complete"
-        android:id="@+id/instruction_complete"
-        android:layout_gravity="bottom|center"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:onClick="addRate"
-        style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:textColor="@color/colorAccent"/>
-    -->
-
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

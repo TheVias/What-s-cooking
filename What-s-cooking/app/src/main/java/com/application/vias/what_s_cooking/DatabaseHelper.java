@@ -1,21 +1,18 @@
 package com.application.vias.what_s_cooking;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.application.vias.what_s_cooking.entity.Category;
-import com.application.vias.what_s_cooking.entity.CookingImage;
 import com.application.vias.what_s_cooking.entity.Dish;
 import com.application.vias.what_s_cooking.entity.Ingredient;
 import com.application.vias.what_s_cooking.entity.Instruction;
-import com.application.vias.what_s_cooking.entity.Tag;
 import com.application.vias.what_s_cooking.enums.DBColumn;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -54,6 +51,7 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
         db.execSQL(DATABASE_CREATE_SCRIPT6);
         db.execSQL(DATABASE_CREATE_SCRIPT7);
         db.execSQL(DATABASE_CREATE_SCRIPT8);
+        db.execSQL(DATABASE_CREATE_SCRIPT9);
 
         //наполнение таблиц
         db.execSQL(DATABASE_INSERT_INSTRUCTION_SCRIPT1);
@@ -61,6 +59,7 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
         db.execSQL(DATABASE_INSERT_INSTRUCTION_SCRIPT3);
         db.execSQL(DATABASE_INSERT_INSTRUCTION_SCRIPT4);
         db.execSQL(DATABASE_INSERT_INSTRUCTION_SCRIPT5);
+        db.execSQL(DATABASE_INSERT_INSTRUCTION_SCRIPT6);
 
         db.execSQL(DATABASE_INSERT_TAG_SCRIPT1);
         db.execSQL(DATABASE_INSERT_TAG_SCRIPT2);
@@ -96,6 +95,9 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
         db.execSQL(DATABASE_INSERT_DISH_INSTR_SCRIPT1);
         db.execSQL(DATABASE_INSERT_DISH_INSTR_SCRIPT2);
         db.execSQL(DATABASE_INSERT_DISH_INSTR_SCRIPT3);
+        db.execSQL(DATABASE_INSERT_DISH_INSTR_SCRIPT4);
+        db.execSQL(DATABASE_INSERT_DISH_INSTR_SCRIPT5);
+        db.execSQL(DATABASE_INSERT_DISH_INSTR_SCRIPT6);
 //
         db.execSQL(DATABASE_INSERT_DISH_TAG_SCRIPT1);
         db.execSQL(DATABASE_INSERT_DISH_TAG_SCRIPT2);
@@ -112,6 +114,33 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
         context.deleteDatabase(DATABASE_NAME);
         // Создаём новую таблицу
         onCreate(db);
+    }
+
+    public void addToFavorites(Dish dish) {
+        SQLiteDatabase db = getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DBColumn.FAVORITE.getColumn(1),dish.get_id());
+        db.insert(DBColumn.FAVORITE.getName(),null,values);
+        db.close();
+    }
+
+    public List<Dish> getFavorites() {
+        SQLiteDatabase db = getReadableDatabase();
+        List<Dish> list = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DBColumn.FAVORITE.getName(),null);
+
+        int dish_id;
+        if (cursor.moveToFirst()) {
+            do {
+                dish_id = cursor.getInt(cursor.getColumnIndex(DBColumn.FAVORITE.getColumn(1)));
+                Dish dish = getDishById(dish_id);
+                list.add(dish);
+            } while (cursor.moveToNext());
+        } else {
+            return null;
+        }
+
+        return list;
     }
 
     public Ingredient getIngredientById(int i) {
@@ -156,6 +185,7 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
         Instruction instruction = new Instruction();
         instruction.set_id(id);
         instruction.setDescription(desc);
+        instruction.setTimer(timer);
         return instruction;
     }
 
@@ -226,6 +256,48 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
         return list;
     }
 
+    public Dish getDishById(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(DBColumn.DISH.getName(), DBColumn.DISH.getColumns(),
+                "_id = ?", new String[]{String.valueOf(id)},
+                null, null, null);
+        int _id,vote_simple_count,vote_origin_count,vote_cashtime_count,r_simple,r_origin,r_cashtime;
+        String name,date_create,description,image;
+        Dish dish = new Dish();
+        if (cursor.moveToFirst()) {
+            _id = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH.getColumn(0)));
+            name = cursor.getString(cursor.getColumnIndex(DBColumn.DISH.getColumn(1)));
+            vote_simple_count = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH.getColumn(2)));
+            vote_origin_count = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH.getColumn(3)));
+            vote_cashtime_count = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH.getColumn(4)));
+            r_simple = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH.getColumn(5)));
+            r_origin = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH.getColumn(6)));
+            r_cashtime = cursor.getInt(cursor.getColumnIndex(DBColumn.DISH.getColumn(7)));
+            date_create = cursor.getString(cursor.getColumnIndex(DBColumn.DISH.getColumn(8)));
+            description = cursor.getString(cursor.getColumnIndex(DBColumn.DISH.getColumn(9)));
+            image = cursor.getString(cursor.getColumnIndex(DBColumn.DISH.getColumn(10)));
+            dish.set_id(_id);
+            dish.setName(name);
+            dish.setVote_origin_count(vote_origin_count);
+            dish.setVote_cashtime_count(vote_cashtime_count);
+            dish.setVote_simple_count(vote_simple_count);
+            dish.setR_cashtime(r_cashtime);
+            dish.setR_origin(r_origin);
+            dish.setR_simple(r_simple);
+            dish.setDate_create(date_create);
+            //подгрузка пути изображения
+            dish.setImage_res(image);
+            dish.setDescription(description);
+            dish.setInstructions(getInstructionsByDish(dish));
+            dish.setIngredients(getIngredientsByDish(dish));
+        } else {
+            return null;
+        }
+        cursor.close();
+        db.close();
+        return dish;
+    }
+
     public List<Dish> getAllDishes() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(DBColumn.DISH.getName(), DBColumn.DISH.getColumns(),
@@ -257,9 +329,8 @@ public class DatabaseHelper extends AbstractDatabaseHelper implements BaseColumn
                 dish.setR_origin(r_origin);
                 dish.setR_simple(r_simple);
                 dish.setDate_create(date_create);
-                //подгрузка изображения
-                ILoadImage loader = new LocalLoad();
-                dish.setImage(loader.load(image,context));
+                //подгрузка пути изображения
+                dish.setImage_res(image);
                 dish.setDescription(description);
                 dish.setInstructions(getInstructionsByDish(dish));
                 dish.setIngredients(getIngredientsByDish(dish));

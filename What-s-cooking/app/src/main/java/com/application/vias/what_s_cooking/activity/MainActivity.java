@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.application.vias.what_s_cooking.ApplicationState;
 import com.application.vias.what_s_cooking.DatabaseHelper;
 import com.application.vias.what_s_cooking.Option;
 import com.application.vias.what_s_cooking.R;
@@ -41,12 +42,14 @@ public class MainActivity extends AbstractActivity {
                         goToNewActivity(LinkActivity.class);
                     break;
                     case 1:
-                        Intent intent = new Intent(getApplicationContext(),RecipeRVActivity.class);
-                        intent.putExtra("action","show_all");
-                        startActivity(intent);
+                        Intent intent1 = new Intent(getApplicationContext(),RecipeRVActivity.class);
+                        intent1.putExtra("action","show_all");
+                        startActivity(intent1);
                         break;
                     case 2:
-                        Toast.makeText(getApplicationContext(),R.string.option3,Toast.LENGTH_SHORT).show();
+                        Intent intent2 = new Intent(getApplicationContext(),RecipeRVActivity.class);
+                        intent2.putExtra("action","show_favorite");
+                        startActivity(intent2);
                         break;
                 }
             }
@@ -85,6 +88,8 @@ public class MainActivity extends AbstractActivity {
         switch (item.getItemId()) {
             case R.id.item_settings:
                 //Toast.makeText(getApplicationContext(), "Настройки", Toast.LENGTH_SHORT).show();
+                ApplicationState.getInstance().setDish(ApplicationState.getInstance().getHelper().getAllDishes().get(1));
+                ApplicationState.getInstance().setInstructionNumber(0);
                 goToNewActivity(CookingActivity.class);
                 return true;
         }

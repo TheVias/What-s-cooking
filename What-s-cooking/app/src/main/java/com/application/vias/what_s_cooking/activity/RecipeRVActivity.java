@@ -34,11 +34,16 @@ public class RecipeRVActivity extends AbstractActivity {
 
         String action = (String)getIntent().getExtras().get("action");
         if (action.equals("show_all")) {
+            setTitle("Все наши рецепты");
             dishList = helper.getAllDishes();
-
         }
         if (action.equals("show_for_ingredients")) {
+            setTitle("Рецепты для вас");
             dishList = helper.getDishesByIngredients(state.getIngredientList());
+        }
+        if (action.equals("show_favorite")) {
+            setTitle("Ваши любимые блюда");
+            dishList = helper.getFavorites();
         }
 
         recipe.addAll(dishList);
@@ -50,7 +55,7 @@ public class RecipeRVActivity extends AbstractActivity {
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        RecipeAdapter adapter = new RecipeAdapter(recipe);
+        RecipeAdapter adapter = new RecipeAdapter(recipe,getApplicationContext());
         recyclerView.setAdapter(adapter);
     }
 

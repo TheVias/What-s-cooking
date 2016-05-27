@@ -82,25 +82,33 @@ public class AbstractDatabaseHelper extends SQLiteOpenHelper {
             + "FOREIGN KEY (dish) REFERENCES DISH(_id), "
             + "FOREIGN KEY (tag) REFERENCES TAG(_id));";
 
+    // ЛЮБИМЫЕ БЛЮДА
+    protected static final String DATABASE_CREATE_SCRIPT9 = "CREATE TABLE FAVORITE( "
+            + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "dish INTEGER, "
+            + "FOREIGN KEY (dish) REFERENCES DISH(_id));";
+
     //Добавление информации в БД
 
     //Добавление информации в таблицу INSTRUCTION
     protected static final String DATABASE_INSERT_INSTRUCTION_SCRIPT1 = "INSERT INTO INSTRUCTION "
             + "(description, timer, image) "
             + "VALUES ('Варить 10 минут', 1, 'egg.jpg'); ";
-
     protected static final String DATABASE_INSERT_INSTRUCTION_SCRIPT2 = "INSERT INTO INSTRUCTION "
             + "(description, timer, image) "
             + "VALUES ('Почистить картошку, морковку и лук', 0, 'potato.jpg'); ";
     protected static final String DATABASE_INSERT_INSTRUCTION_SCRIPT3 = "INSERT INTO INSTRUCTION "
             + "(description, timer, image) "
-            + "VALUES ('Порезать кубиками', 0, NULL); ";
+            + "VALUES ('Порезать кубиками', 0, 'egg.jpg'); ";
     protected static final String DATABASE_INSERT_INSTRUCTION_SCRIPT4 = "INSERT INTO INSTRUCTION "
             + "(description, timer, image) "
             + "VALUES ('Жарить на медленном огне 15 минут', 1, 'fry.jpg'); ";
     protected static final String DATABASE_INSERT_INSTRUCTION_SCRIPT5 = "INSERT INTO INSTRUCTION "
             + "(description, timer, image) "
             + "VALUES ('Выпекать при температуре 180 градусов в течение часа', 1, 'bake.jpg'); ";
+    protected static final String DATABASE_INSERT_INSTRUCTION_SCRIPT6 = "INSERT INTO INSTRUCTION "
+            + "(description, timer, image) "
+            + "VALUES ('Берешь гречку и варишь её. В чем проблема, Степа? Тебе нужно целое приложение, чтобы сварить гречку, серьезно?', 1, 'bake.jpg'); ";
 
     //Добавление информации в таблицу TAG
     protected static final String DATABASE_INSERT_TAG_SCRIPT1 = "INSERT INTO TAG "
@@ -202,6 +210,15 @@ public class AbstractDatabaseHelper extends SQLiteOpenHelper {
     protected static final String DATABASE_INSERT_DISH_INSTR_SCRIPT3 = "INSERT INTO DISH_INSTR "
             + "(dish, instruction, instruction_num) "
             + "VALUES (1,1,2);";
+    protected static final String DATABASE_INSERT_DISH_INSTR_SCRIPT4 = "INSERT INTO DISH_INSTR "
+            + "(dish, instruction, instruction_num) "
+            + "VALUES (2,3,0);";
+    protected static final String DATABASE_INSERT_DISH_INSTR_SCRIPT5 = "INSERT INTO DISH_INSTR "
+            + "(dish, instruction, instruction_num) "
+            + "VALUES (2,5,1);";
+    protected static final String DATABASE_INSERT_DISH_INSTR_SCRIPT6 = "INSERT INTO DISH_INSTR "
+            + "(dish, instruction, instruction_num) "
+            + "VALUES (3,6,0);";
 
     //Добавление информации в таблицу DISH_TAG
     protected static final String DATABASE_INSERT_DISH_TAG_SCRIPT1 = "INSERT INTO DISH_TAG "

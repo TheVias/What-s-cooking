@@ -32,6 +32,20 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/start_timer_btn_text"
+        android:id="@+id/start_timer_btn"
+        android:layout_below="@+id/instruction_description"
+        android:layout_centerHorizontal="true"
+        android:onClick="startTimer"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/complete"
         android:id="@+id/instruction_complete"
         android:layout_alignParentBottom="true"

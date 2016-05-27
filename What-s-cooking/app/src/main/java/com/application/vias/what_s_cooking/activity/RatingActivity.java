@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.vias.what_s_cooking.ApplicationState;
+import com.application.vias.what_s_cooking.DatabaseHelper;
 import com.application.vias.what_s_cooking.R;
 import com.application.vias.what_s_cooking.entity.Dish;
 
@@ -51,7 +52,6 @@ public class RatingActivity extends AbstractActivity {
 
     public void addRate(View v) {
         //TODO: сохранять оценку пользователем блюда (заносить в базу)
-
         ApplicationState state = ApplicationState.getInstance();
         state.setDish(null);
         state.setInstructionNumber(-1);
@@ -132,5 +132,11 @@ public class RatingActivity extends AbstractActivity {
 
             }
         });
+    }
+
+    public void toFavorite(View v) {
+        ApplicationState state = ApplicationState.getInstance();
+        DatabaseHelper helper = state.getHelper();
+        helper.addToFavorites(state.getDish());
     }
 }

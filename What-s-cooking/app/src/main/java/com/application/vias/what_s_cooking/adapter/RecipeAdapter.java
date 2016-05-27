@@ -1,5 +1,6 @@
 package com.application.vias.what_s_cooking.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.application.vias.what_s_cooking.ApplicationState;
 import com.application.vias.what_s_cooking.R;
@@ -22,8 +25,6 @@ import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.recipeViewHolder> {
 
-
-
     public static class recipeViewHolder extends RecyclerView.ViewHolder {
 
         CardView cv;
@@ -31,9 +32,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.recipeView
         TextView recipeText;
         ImageView recipePhoto;
         ListView recipeTag;
+        RelativeLayout container;
 
         recipeViewHolder(View itemView) {
             super(itemView);
+            container = (RelativeLayout)itemView.findViewById(R.id.recipe_container);
             cv = (CardView)itemView.findViewById(R.id.cv);
             recipeName = (TextView)itemView.findViewById(R.id.recipe_name);
             recipeText = (TextView)itemView.findViewById(R.id.recipe_text);
@@ -42,9 +45,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.recipeView
     }
 
     List<Dish> recipes;
+    Context context;
 
     public RecipeAdapter(List<Dish> recipes){
         this.recipes = recipes;
+    }
+
+    public RecipeAdapter(List<Dish> recipes, Context context) {
+        this.recipes = recipes;
+        this.context = context;
     }
 
     @Override
@@ -53,7 +62,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.recipeView
     }
 
     @Override
-    public recipeViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public recipeViewHolder onCreateViewHolder(ViewGroup viewGroup, final int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recipe_item, viewGroup, false);
         recipeViewHolder pvh = new recipeViewHolder(v);
         return pvh;
@@ -62,18 +71,23 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.recipeView
     @Override
     public void onBindViewHolder(recipeViewHolder recipeViewHolder, int i) {
         final Dish recipe = recipes.get(i);
+        recipe.setContext(context);
         recipeViewHolder.recipeName.setText(recipe.getName());
         recipeViewHolder.recipeText.setText(recipe.getDescription());
         recipeViewHolder.recipePhoto.setImageBitmap(recipe.getImage().getImage());
-        recipeViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        recipeViewHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ApplicationState.getInstance().setDish(recipe);
                 ApplicationState.getInstance().setInstructionNumber(0);
+                //Toast.makeText(context,recipe.getInstructions().get(0).getDescription(),Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(context,CookingActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
         //recipeViewHolder.recipeTag
-
     }
 
     @Override
@@ -81,7 +95,4 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.recipeView
         return recipes.size();
     }
 
-
 }
-
-

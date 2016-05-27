@@ -1,35 +1,27 @@
 package com.application.vias.what_s_cooking.activity;
 
-import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.vias.what_s_cooking.ApplicationState;
 import com.application.vias.what_s_cooking.R;
 import com.application.vias.what_s_cooking.adapter.InstructionPagerAdapter;
+import com.application.vias.what_s_cooking.CookingTimer;
 import com.application.vias.what_s_cooking.entity.Dish;
 import com.application.vias.what_s_cooking.entity.Instruction;
+import com.application.vias.what_s_cooking.view.TimerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,6 +39,7 @@ public class CookingActivity extends AbstractActivity {
     private FloatingActionButton fab;
     private int currentInstructionNumber;
     private List<Instruction> listInstructions;
+    CookingTimer cookingTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,81 +47,73 @@ public class CookingActivity extends AbstractActivity {
         setContentView(R.layout.cooking_activity);
         ApplicationState state = ApplicationState.getInstance();
         Dish dish;
+
         // Каким-то образом получаем то блюдо, которое должны готовить
         if (state.getDish() != null) {
             // Если мы уже что-то готовили, то продолжаем
             dish = state.getDish();
             currentInstructionNumber = state.getInstructionNumber();
-        } else {
-            // TODO: Если мы ничего не готовим, то отправляем на главное активити
-            // Пока что заглушка:
-            dish = state.getHelper().getDishesByIngredients(state.getHelper().getAllIngredients()).get(0);
-            currentInstructionNumber = 0;
-            // Записываем в стейт, что у нас началась готовочка
-            state.setDish(dish);
-            state.setInstructionNumber(currentInstructionNumber);
-        }
-        // Ставим заголовок название нашего блюда
-        setTitle(dish.getName());
-        // Вытаскиваем инструкции для приготовления нашего блюда
-        listInstructions = state.getHelper().getInstructionsByDish(dish);
 
-        // Создаем адаптер, в который отдаем список инструкций
-        instructionsPagerAdapter = new InstructionPagerAdapter(getSupportFragmentManager());
-        instructionsPagerAdapter.setInstructionList(listInstructions);
+            // Ставим заголовок название нашего блюда
+            setTitle(dish.getName());
+            // Вытаскиваем инструкции для приготовления нашего блюда
+            listInstructions = dish.getInstructions();
 
-        // Устанавливаем ViewPager наш адаптер
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(instructionsPagerAdapter);
-        mViewPager.setCurrentItem(currentInstructionNumber, true);
+            // Создаем адаптер, в который отдаем список инструкций
+            instructionsPagerAdapter = new InstructionPagerAdapter(getSupportFragmentManager());
+            instructionsPagerAdapter.setInstructionList(listInstructions);
 
-        // Устанавливаем текущее значение прогресс бара
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        progressBar.setProgress(currentInstructionNumber*100 / listInstructions.size());
+            // Устанавливаем ViewPager наш адаптер
+            mViewPager = (ViewPager) findViewById(R.id.container);
+            mViewPager.setAdapter(instructionsPagerAdapter);
+            mViewPager.setCurrentItem(currentInstructionNumber, true);
 
-        // Кнопка перемотки на текущий этап
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mViewPager.setCurrentItem(currentInstructionNumber, true);
-            }
-        });
-        fab.hide();
+            // Устанавливаем текущее значение прогресс бара
+            progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+            progressBar.setProgress(currentInstructionNumber*100 / listInstructions.size());
 
-        // Этот листнер слушает переключение этапов готовки и сохраняет в state номер текущего
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (currentInstructionNumber != mViewPager.getCurrentItem()) {
-                    fab.show();
-                } else {
-                    fab.hide();
+            // Кнопка перемотки на текущий этап
+            fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mViewPager.setCurrentItem(currentInstructionNumber, true);
                 }
-                /*
-                currentInstructionNumber = position;
-                ApplicationState.getInstance().setInstructionNumber(currentInstructionNumber);
-                progressBar.setProgress(currentInstructionNumber*100 / listInstructions.size());
-                Toast.makeText(getApplicationContext(),String.valueOf(listInstructions.size()),Toast.LENGTH_SHORT);
-                */
-            }
+            });
+            fab.hide();
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
+            // Этот листнер слушает переключение этапов готовки и сохраняет в state номер текущего
+            mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            }
-        });
-    }
+                }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.menu_link_activity, menu);
-        return true;
+                @Override
+                public void onPageSelected(int position) {
+                    if (currentInstructionNumber != mViewPager.getCurrentItem()) {
+                        fab.show();
+                    } else {
+                        fab.hide();
+                    }
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+
+            // Инициализируем таймер
+            Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
+            TimerView timerView = (TimerView) findViewById(R.id.timer_view);
+            cookingTimer = new CookingTimer();
+            cookingTimer.initTimer(this,chronometer,timerView);
+
+        } else {
+            // Если мы ничего не готовим, то отправляем на главное активити
+            goToNewActivity(MainActivity.class);
+        }
     }
 
     @Override
@@ -167,20 +152,14 @@ public class CookingActivity extends AbstractActivity {
         }
     }
 
-    public void setTimer(long time) {
-        //TODO: реализовать будильник для инструкции
-        Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
-        chronometer.start();
-        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-            @Override
-            public void onChronometerTick(Chronometer chronometer) {
-                if (SystemClock.elapsedRealtime()-chronometer.getBase() > 5000) {
-                    Toast.makeText(getApplicationContext(),"угу",Toast.LENGTH_SHORT).show();
-
-                    chronometer.stop();
-                }
-            }
-        });
+    public void startTimer(View view) {
+        //Toast.makeText(this,String.valueOf(mViewPager.getCurrentItem()),Toast.LENGTH_SHORT).show();
+        Fragment fragment = instructionsPagerAdapter.getItem(mViewPager.getCurrentItem());
+        Instruction instruction = ((InstructionFragment) fragment).getInstruction();
+        // TODO: не работает - магия????
+        view.setEnabled(false);
+        instructionsPagerAdapter.notifyDataSetChanged();
+        cookingTimer.startTimer(instruction.getTimer());
     }
 
 }

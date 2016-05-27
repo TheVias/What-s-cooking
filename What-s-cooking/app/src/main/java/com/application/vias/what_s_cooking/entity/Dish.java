@@ -2,6 +2,7 @@ package com.application.vias.what_s_cooking.entity;
 
 import android.content.Context;
 
+import com.application.vias.what_s_cooking.ILoadImage;
 import com.application.vias.what_s_cooking.LocalLoad;
 
 import java.io.Serializable;
@@ -24,6 +25,8 @@ public class Dish implements Serializable {
     private List <Tag> tags;
     private String description;
     private CookingImage image;
+    private String image_res;
+    private Context context;
 
     public Dish() {}
 
@@ -161,10 +164,28 @@ public class Dish implements Serializable {
     }
 
     public CookingImage getImage() {
+        ILoadImage loader = new LocalLoad();
+        setImage(loader.load(image_res,context));
         return image;
     }
 
     public void setImage(CookingImage image) {
         this.image = image;
+    }
+
+    public String getImage_res() {
+        return image_res;
+    }
+
+    public void setImage_res(String image_res) {
+        this.image_res = image_res;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 }

@@ -11,7 +11,8 @@ public enum DBColumn {
     TAG("tag", new String[] {"_id","name"}),
     DISH_INGR("dish_ingr",new String[] {"_id","dish","ingredient"}),
     DISH_INSTR("dish_instr",new String[] {"_id","dish","instruction","instruction_num"}),
-    DISH_TAG("dish_tag",new String[] {"_id","dish","tag"});
+    DISH_TAG("dish_tag",new String[] {"_id","dish","tag"}),
+    FAVORITE("favorite",new String[] {"_id","dish"});
 
     private String[] array;
     private String name;

@@ -38,6 +38,10 @@ public class InstructionFragment extends Fragment {
             Button buttonComplete = (Button) rootView.findViewById(R.id.instruction_complete);
             buttonComplete.setEnabled(false);
         }
+        if (instruction.getTimer() == 0) {
+            Button buttonStartTimer = (Button) rootView.findViewById(R.id.start_timer_btn);
+            buttonStartTimer.setVisibility(View.GONE);
+        }
         return rootView;
     }
 
