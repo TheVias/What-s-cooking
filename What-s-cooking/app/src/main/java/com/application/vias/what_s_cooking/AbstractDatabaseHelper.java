@@ -13,7 +13,7 @@ import android.util.Log;
 public class AbstractDatabaseHelper extends SQLiteOpenHelper {
 
     //имя базы данных
-    protected static final String DATABASE_NAME = "database.db";
+    protected static final String DATABASE_NAME = "database2.db";
     //версия базы данных
     protected static final int DATABASE_VERSION = 2;
 

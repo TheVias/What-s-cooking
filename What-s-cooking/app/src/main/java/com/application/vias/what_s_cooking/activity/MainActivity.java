@@ -88,9 +88,7 @@ public class MainActivity extends AbstractActivity {
         switch (item.getItemId()) {
             case R.id.item_settings:
                 //Toast.makeText(getApplicationContext(), "Настройки", Toast.LENGTH_SHORT).show();
-                ApplicationState.getInstance().setDish(ApplicationState.getInstance().getHelper().getAllDishes().get(1));
-                ApplicationState.getInstance().setInstructionNumber(0);
-                goToNewActivity(CookingActivity.class);
+                goToNewActivity(AboutActivity.class);
                 return true;
         }
         return super.onOptionsItemSelected(item);
